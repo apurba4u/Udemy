@@ -1,7 +1,18 @@
 'use client';
 
 import { useState } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
+import { Container } from '@/components/layout/Container';
+import { Section } from '@/components/layout/Section';
+import { PublicLayout } from '@/components/layout/PublicLayout';
+import { cn } from '@/lib/utils';
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.5 },
+};
 
 const faqs = [
   {
@@ -38,81 +49,113 @@ const faqs = [
   },
 ];
 
-export default function FAQPage() {
+function HeroSection() {
+  return (
+    <section className="bg-gradient-to-br from-primary-50 to-white py-20 dark:from-primary-950/20 dark:to-neutral-950">
+      <Container>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mx-auto max-w-3xl text-center"
+        >
+          <h1 className="mb-6 text-4xl font-bold text-neutral-900 dark:text-neutral-100 sm:text-5xl">
+            Frequently Asked Questions
+          </h1>
+          <p className="text-lg text-neutral-600 dark:text-neutral-400">
+            Find answers to common questions about our platform.
+          </p>
+        </motion.div>
+      </Container>
+    </section>
+  );
+}
+
+function FAQAccordion() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const toggleFAQ = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
   return (
-    <div className="min-h-screen bg-white">
-      <header className="border-b border-gray-200 bg-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
-          <div className="flex items-center gap-8">
-            <a href="/" className="text-2xl font-bold text-purple-600">Udemy Clone</a>
-            <nav className="hidden md:flex items-center gap-6">
-              <a href="/courses" className="text-gray-700 hover:text-gray-900">Courses</a>
-              <a href="/categories" className="text-gray-700 hover:text-gray-900">Categories</a>
-              <a href="/about" className="text-gray-700 hover:text-gray-900">About</a>
-            </nav>
-          </div>
-          <div className="flex items-center gap-4">
-            <a href="/auth/login" className="text-gray-700 hover:text-gray-900">Log in</a>
-            <a href="/auth/register" className="bg-gray-900 px-4 py-2 text-white hover:bg-gray-800">
-              Sign up
-            </a>
-          </div>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-3xl px-4 py-12">
-        <h1 className="mb-4 text-3xl font-bold text-gray-900">Frequently Asked Questions</h1>
-        <p className="mb-8 text-gray-600">
-          Find answers to common questions about our platform.
-        </p>
-
-        <div className="space-y-4">
+    <Section padding="lg">
+      <Container>
+        <div className="mx-auto max-w-3xl">
           {faqs.map((faq, index) => (
-            <div key={index} className="border border-gray-200">
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.05 }}
+              className="border-b border-neutral-200 dark:border-neutral-700"
+            >
               <button
-                onClick={() => toggleFAQ(index)}
-                className="flex w-full items-center justify-between p-4 text-left hover:bg-gray-50"
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                className="flex w-full items-center justify-between py-5 text-left"
               >
-                <span className="font-medium text-gray-900">{faq.question}</span>
-                {openIndex === index ? (
-                  <ChevronUp size={20} className="text-gray-500" />
-                ) : (
-                  <ChevronDown size={20} className="text-gray-500" />
-                )}
+                <span className="pr-4 text-lg font-medium text-neutral-900 dark:text-neutral-100">
+                  {faq.question}
+                </span>
+                <ChevronDown
+                  className={cn(
+                    'h-5 w-5 shrink-0 text-neutral-500 transition-transform duration-200',
+                    openIndex === index && 'rotate-180'
+                  )}
+                />
               </button>
-              {openIndex === index && (
-                <div className="border-t border-gray-200 px-4 py-4 text-gray-600">
-                  {faq.answer}
-                </div>
-              )}
-            </div>
+              <AnimatePresence>
+                {openIndex === index && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="overflow-hidden"
+                  >
+                    <p className="pb-5 text-neutral-600 dark:text-neutral-400">
+                      {faq.answer}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
           ))}
         </div>
+      </Container>
+    </Section>
+  );
+}
 
-        <div className="mt-12 text-center">
-          <p className="mb-4 text-gray-600">
+function ContactCTA() {
+  return (
+    <Section padding="lg" className="bg-neutral-50 dark:bg-neutral-900">
+      <Container>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <h2 className="mb-4 text-2xl font-bold text-neutral-900 dark:text-neutral-100">
             Still have questions?
+          </h2>
+          <p className="mb-6 text-neutral-600 dark:text-neutral-400">
+            We&apos;re here to help. Contact our support team.
           </p>
-          <a
-            href="/contact"
-            className="inline-block bg-purple-600 px-6 py-3 text-white hover:bg-purple-700"
-          >
-            Contact Us
+          <a href="/contact">
+            <button className="rounded-lg bg-primary-600 px-6 py-3 text-white hover:bg-primary-700">
+              Contact Us
+            </button>
           </a>
-        </div>
-      </main>
+        </motion.div>
+      </Container>
+    </Section>
+  );
+}
 
-      <footer className="bg-gray-900 py-12 text-white">
-        <div className="mx-auto max-w-7xl px-4 text-center">
-          <p>&copy; 2024 Udemy Clone. All rights reserved.</p>
-        </div>
-      </footer>
-    </div>
+export default function FAQPage() {
+  return (
+    <PublicLayout>
+      <HeroSection />
+      <FAQAccordion />
+      <ContactCTA />
+    </PublicLayout>
   );
 }

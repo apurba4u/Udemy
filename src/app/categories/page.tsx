@@ -1,108 +1,119 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { BookOpen } from 'lucide-react';
+import { Container } from '@/components/layout/Container';
+import { Section } from '@/components/layout/Section';
+import { Card } from '@/components/ui/Card';
+import { Skeleton } from '@/components/ui/Skeleton';
+import { PublicLayout } from '@/components/layout/PublicLayout';
 import api from '@/lib/api';
 import { Category } from '@/types';
 
-export default function CategoriesPage() {
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.5 },
+};
+
+function HeroSection() {
+  return (
+    <section className="bg-gradient-to-br from-primary-50 to-white py-20 dark:from-primary-950/20 dark:to-neutral-950">
+      <Container>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mx-auto max-w-3xl text-center"
+        >
+          <h1 className="mb-6 text-4xl font-bold text-neutral-900 dark:text-neutral-100 sm:text-5xl">
+            Categories
+          </h1>
+          <p className="text-lg text-neutral-600 dark:text-neutral-400">
+            Explore our wide range of categories and find the perfect course for you.
+          </p>
+        </motion.div>
+      </Container>
+    </section>
+  );
+}
+
+function CategoriesGrid() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await api.get('/categories');
+        setCategories(response.data.data);
+      } catch {
+        setCategories([]);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchCategories();
   }, []);
 
-  const fetchCategories = async () => {
-    try {
-      const response = await api.get('/categories');
-      setCategories(response.data.data);
-    } catch (error) {
-      console.error('Failed to fetch categories:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const defaultCategories: Category[] = [
-    { _id: '1', name: 'Development', slug: 'development', description: 'Learn to code and build applications', courseCount: 0, createdAt: '', featured: false, active: true },
-    { _id: '2', name: 'Business', slug: 'business', description: 'Business skills for career growth', courseCount: 0, createdAt: '', featured: false, active: true },
-    { _id: '3', name: 'IT & Software', slug: 'it-software', description: 'IT certifications and skills', courseCount: 0, createdAt: '', featured: false, active: true },
-    { _id: '4', name: 'Design', slug: 'design', description: 'Graphic design and UX/UI', courseCount: 0, createdAt: '', featured: false, active: true },
-    { _id: '5', name: 'Marketing', slug: 'marketing', description: 'Digital marketing strategies', courseCount: 0, createdAt: '', featured: false, active: true },
-    { _id: '6', name: 'Photography', slug: 'photography', description: 'Photography and video skills', courseCount: 0, createdAt: '', featured: false, active: true },
-  ];
-
-  const displayCategories = categories.length > 0 ? categories : defaultCategories;
-
   return (
-    <div className="min-h-screen bg-white">
-      <header className="border-b border-gray-200 bg-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
-          <div className="flex items-center gap-8">
-            <a href="/" className="text-2xl font-bold text-purple-600">Udemy Clone</a>
-            <nav className="hidden md:flex items-center gap-6">
-              <a href="/courses" className="text-gray-700 hover:text-gray-900">Courses</a>
-              <a href="/categories" className="text-gray-900 font-medium">Categories</a>
-              <a href="/about" className="text-gray-700 hover:text-gray-900">About</a>
-            </nav>
-          </div>
-          <div className="flex items-center gap-4">
-            <a href="/auth/login" className="text-gray-700 hover:text-gray-900">Log in</a>
-            <a href="/auth/register" className="bg-gray-900 px-4 py-2 text-white hover:bg-gray-800">
-              Sign up
-            </a>
-          </div>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-7xl px-4 py-12">
-        <h1 className="mb-4 text-3xl font-bold text-gray-900">Categories</h1>
-        <p className="mb-8 text-gray-600">
-          Explore our wide range of categories and find the perfect course for you.
-        </p>
-
+    <Section padding="lg">
+      <Container>
         {loading ? (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="animate-pulse border border-gray-200 p-6">
-                <div className="mb-4 h-12 w-12 bg-gray-200" />
-                <div className="h-4 w-1/2 bg-gray-200" />
-                <div className="mt-2 h-4 w-3/4 bg-gray-200" />
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="rounded-xl border border-neutral-200 p-6 dark:border-neutral-700">
+                <Skeleton className="mb-4 h-12 w-12 rounded-xl" />
+                <Skeleton className="mb-2 h-6 w-1/2" />
+                <Skeleton className="h-4 w-3/4" />
               </div>
             ))}
           </div>
-        ) : (
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {displayCategories.map((category) => (
-              <a
-                key={category._id || category.name}
-                href={`/courses?category=${category._id || category.name.toLowerCase()}`}
-                className="group border border-gray-200 p-6 transition-shadow hover:shadow-md"
+        ) : categories.length > 0 ? (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {categories.map((category, index) => (
+              <motion.div
+                key={category._id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
               >
-                <div className="mb-4 flex h-12 w-12 items-center justify-center bg-purple-100">
-                  <BookOpen size={24} className="text-purple-600" />
-                </div>
-                <h3 className="mb-2 text-xl font-semibold text-gray-900 group-hover:text-purple-600">
-                  {category.name}
-                </h3>
-                <p className="mb-4 text-gray-600">
-                  {category.description || 'Explore courses in this category'}
-                </p>
-                <p className="text-sm text-gray-500">
-                  {category.courseCount} course{category.courseCount !== 1 ? 's' : ''}
-                </p>
-              </a>
+                <Link href={`/courses?category=${category._id}`}>
+                  <Card hover className="group h-full">
+                    <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary-100 transition-colors group-hover:bg-primary-200 dark:bg-primary-900/30">
+                      <BookOpen className="h-7 w-7 text-primary-600" />
+                    </div>
+                    <h3 className="mb-2 text-xl font-semibold text-neutral-900 dark:text-neutral-100 group-hover:text-primary-600">
+                      {category.name}
+                    </h3>
+                    <p className="mb-4 text-neutral-600 dark:text-neutral-400">
+                      {category.description || 'Explore courses in this category'}
+                    </p>
+                    <p className="text-sm text-primary-600">
+                      {category.courseCount} course{category.courseCount !== 1 ? 's' : ''} →
+                    </p>
+                  </Card>
+                </Link>
+              </motion.div>
             ))}
           </div>
+        ) : (
+          <div className="py-12 text-center text-neutral-500 dark:text-neutral-400">
+            No categories available yet.
+          </div>
         )}
-      </main>
+      </Container>
+    </Section>
+  );
+}
 
-      <footer className="bg-gray-900 py-12 text-white">
-        <div className="mx-auto max-w-7xl px-4 text-center">
-          <p>&copy; 2024 Udemy Clone. All rights reserved.</p>
-        </div>
-      </footer>
-    </div>
+export default function CategoriesPage() {
+  return (
+    <PublicLayout>
+      <HeroSection />
+      <CategoriesGrid />
+    </PublicLayout>
   );
 }
