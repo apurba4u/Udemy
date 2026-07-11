@@ -287,7 +287,7 @@ export default function CoursesPage() {
                           {course.title}
                         </h3>
                         <p className="mb-2 text-sm text-gray-600">
-                          {course.instructor?.name || 'Unknown Instructor'}
+                          {course.instructor?.fullName || 'Unknown Instructor'}
                         </p>
                         <div className="mb-2 flex items-center gap-1">
                           <span className="font-semibold text-yellow-500">

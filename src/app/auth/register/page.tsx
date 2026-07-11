@@ -10,9 +10,15 @@ import { Eye, EyeOff } from 'lucide-react';
 import api from '@/lib/api';
 
 const registerSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
+  fullName: z.string().min(2, 'Full name must be at least 2 characters'),
   email: z.string().email('Please enter a valid email'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
+  password: z
+    .string()
+    .min(8, 'Password must be at least 8 characters')
+    .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])/,
+      'Password must contain uppercase, lowercase, number, and special character'
+    ),
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
@@ -42,7 +48,7 @@ export default function RegisterPage() {
 
     try {
       await api.post('/auth/register', {
-        name: data.name,
+        fullName: data.fullName,
         email: data.email,
         password: data.password,
       });
@@ -84,18 +90,18 @@ export default function RegisterPage() {
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
-              <label htmlFor="name" className="mb-1 block text-sm font-medium text-gray-700">
+              <label htmlFor="fullName" className="mb-1 block text-sm font-medium text-gray-700">
                 Full Name
               </label>
               <input
-                id="name"
+                id="fullName"
                 type="text"
-                {...register('name')}
+                {...register('fullName')}
                 className="w-full border border-gray-300 px-4 py-3 focus:border-purple-600 focus:outline-none"
                 placeholder="Enter your full name"
               />
-              {errors.name && (
-                <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
+              {errors.fullName && (
+                <p className="mt-1 text-sm text-red-600">{errors.fullName.message}</p>
               )}
             </div>
 

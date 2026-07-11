@@ -1,10 +1,18 @@
+export type UserRole = 'student' | 'admin';
+
+export type AuthProvider = 'email' | 'google';
+
 export interface User {
   _id: string;
-  name: string;
+  fullName: string;
   email: string;
-  role: 'student' | 'admin';
   avatar?: string;
-  bio?: string;
+  phone?: string;
+  role: UserRole;
+  provider: AuthProvider;
+  isVerified: boolean;
+  isBlocked: boolean;
+  lastLogin?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -77,13 +85,14 @@ export interface Review {
 
 export interface ApiResponse<T> {
   success: boolean;
+  message: string;
   data?: T;
-  message?: string;
-  error?: string;
+  errors?: string[];
 }
 
 export interface PaginatedResponse<T> {
   success: boolean;
+  message: string;
   data: T[];
   pagination: {
     page: number;
@@ -99,7 +108,7 @@ export interface LoginCredentials {
 }
 
 export interface RegisterCredentials {
-  name: string;
+  fullName: string;
   email: string;
   password: string;
 }
