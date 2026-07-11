@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import Providers from '@/components/shared/Providers';
 
 export const metadata: Metadata = {
   title: 'Udemy Clone - Online Learning Platform',
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased">
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

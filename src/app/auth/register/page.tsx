@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Eye, EyeOff } from 'lucide-react';
-import api from '@/lib/api';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
 
 const registerSchema = z.object({
   fullName: z.string().min(2, 'Full name must be at least 2 characters'),
@@ -29,9 +29,9 @@ type RegisterFormData = z.infer<typeof registerSchema>;
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { register: registerUser } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -44,19 +44,13 @@ export default function RegisterPage() {
 
   const onSubmit = async (data: RegisterFormData) => {
     setIsLoading(true);
-    setError('');
 
     try {
-      await api.post('/auth/register', {
-        fullName: data.fullName,
-        email: data.email,
-        password: data.password,
-      });
+      const success = await registerUser(data.fullName, data.email, data.password);
 
-      router.push('/auth/login?registered=true');
-    } catch (err: unknown) {
-      const apiError = err as { response?: { data?: { message?: string } } };
-      setError(apiError.response?.data?.message || 'Registration failed. Please try again.');
+      if (success) {
+        router.push('/auth/login?registered=true');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -82,12 +76,6 @@ export default function RegisterPage() {
             Create your account and start learning today.
           </p>
 
-          {error && (
-            <div className="mb-4 rounded bg-red-50 p-3 text-sm text-red-600">
-              {error}
-            </div>
-          )}
-
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div>
               <label htmlFor="fullName" className="mb-1 block text-sm font-medium text-gray-700">
@@ -99,6 +87,7 @@ export default function RegisterPage() {
                 {...register('fullName')}
                 className="w-full border border-gray-300 px-4 py-3 focus:border-purple-600 focus:outline-none"
                 placeholder="Enter your full name"
+                disabled={isLoading}
               />
               {errors.fullName && (
                 <p className="mt-1 text-sm text-red-600">{errors.fullName.message}</p>
@@ -115,6 +104,7 @@ export default function RegisterPage() {
                 {...register('email')}
                 className="w-full border border-gray-300 px-4 py-3 focus:border-purple-600 focus:outline-none"
                 placeholder="Enter your email"
+                disabled={isLoading}
               />
               {errors.email && (
                 <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
@@ -132,6 +122,7 @@ export default function RegisterPage() {
                   {...register('password')}
                   className="w-full border border-gray-300 px-4 py-3 pr-10 focus:border-purple-600 focus:outline-none"
                   placeholder="Create a password"
+                  disabled={isLoading}
                 />
                 <button
                   type="button"
@@ -157,6 +148,7 @@ export default function RegisterPage() {
                   {...register('confirmPassword')}
                   className="w-full border border-gray-300 px-4 py-3 pr-10 focus:border-purple-600 focus:outline-none"
                   placeholder="Confirm your password"
+                  disabled={isLoading}
                 />
                 <button
                   type="button"
@@ -188,9 +180,16 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gray-900 py-3 text-white hover:bg-gray-800 disabled:opacity-50"
+              className="flex w-full items-center justify-center bg-gray-900 py-3 text-white hover:bg-gray-800 disabled:opacity-50"
             >
-              {isLoading ? 'Creating account...' : 'Sign up'}
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Creating account...
+                </>
+              ) : (
+                'Sign up'
+              )}
             </button>
           </form>
 
