@@ -125,9 +125,11 @@ function CourseHero({ course }: { course: Course }) {
                 )}
               </div>
 
-              <Button className="mb-4 w-full" size="lg">
-                Enroll Now
-              </Button>
+              <Link href={`/checkout?courseId=${course._id}`}>
+                <Button className="mb-4 w-full" size="lg">
+                  Enroll Now
+                </Button>
+              </Link>
 
               <p className="mb-4 text-center text-sm text-neutral-500">
                 30-day money-back guarantee

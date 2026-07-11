@@ -46,14 +46,42 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen bg-white">
-      <div className="hidden w-1/2 bg-gray-900 lg:flex lg:items-center lg:justify-center">
-        <div className="max-w-md px-8 text-center">
+      <div className="hidden w-1/2 bg-gradient-to-br from-neutral-900 to-neutral-800 lg:flex lg:items-center lg:justify-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&h=800&fit=crop')] bg-cover bg-center opacity-30" />
+        <div className="absolute inset-0 bg-gradient-to-br from-neutral-900/80 to-neutral-900/60" />
+        <div className="relative max-w-md px-8 text-center">
           <h1 className="mb-4 text-4xl font-bold text-white">
-            Learning that gets you
+            Learning that gets you results
           </h1>
-          <p className="text-gray-400">
+          <p className="mb-8 text-gray-300">
             Skills for your present (and your future). Get started with us.
           </p>
+          <div className="space-y-4 text-left">
+            <div className="flex items-center gap-3 text-gray-300">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600/20">
+                <svg className="h-4 w-4 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <span>10,000+ expert-led courses</span>
+            </div>
+            <div className="flex items-center gap-3 text-gray-300">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600/20">
+                <svg className="h-4 w-4 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <span>Lifetime access to purchased courses</span>
+            </div>
+            <div className="flex items-center gap-3 text-gray-300">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-600/20">
+                <svg className="h-4 w-4 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <span>Certificate of completion</span>
+            </div>
+          </div>
         </div>
       </div>
 

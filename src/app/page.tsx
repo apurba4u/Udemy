@@ -63,8 +63,9 @@ function HeroSection() {
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-primary-50 to-white py-20 dark:from-primary-950/20 dark:to-neutral-950">
-      <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
+    <section className="relative overflow-hidden bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 py-24 text-white">
+      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1920&h=1080&fit=crop')] bg-cover bg-center opacity-20" />
+      <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/90 to-neutral-900/70" />
       <Container>
         <div className="relative mx-auto max-w-4xl text-center">
           <motion.div
