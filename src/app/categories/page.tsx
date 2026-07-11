@@ -25,12 +25,12 @@ export default function CategoriesPage() {
   };
 
   const defaultCategories: Category[] = [
-    { _id: '1', name: 'Development', slug: 'development', description: 'Learn to code and build applications', courseCount: 0, createdAt: '' },
-    { _id: '2', name: 'Business', slug: 'business', description: 'Business skills for career growth', courseCount: 0, createdAt: '' },
-    { _id: '3', name: 'IT & Software', slug: 'it-software', description: 'IT certifications and skills', courseCount: 0, createdAt: '' },
-    { _id: '4', name: 'Design', slug: 'design', description: 'Graphic design and UX/UI', courseCount: 0, createdAt: '' },
-    { _id: '5', name: 'Marketing', slug: 'marketing', description: 'Digital marketing strategies', courseCount: 0, createdAt: '' },
-    { _id: '6', name: 'Photography', slug: 'photography', description: 'Photography and video skills', courseCount: 0, createdAt: '' },
+    { _id: '1', name: 'Development', slug: 'development', description: 'Learn to code and build applications', courseCount: 0, createdAt: '', featured: false, active: true },
+    { _id: '2', name: 'Business', slug: 'business', description: 'Business skills for career growth', courseCount: 0, createdAt: '', featured: false, active: true },
+    { _id: '3', name: 'IT & Software', slug: 'it-software', description: 'IT certifications and skills', courseCount: 0, createdAt: '', featured: false, active: true },
+    { _id: '4', name: 'Design', slug: 'design', description: 'Graphic design and UX/UI', courseCount: 0, createdAt: '', featured: false, active: true },
+    { _id: '5', name: 'Marketing', slug: 'marketing', description: 'Digital marketing strategies', courseCount: 0, createdAt: '', featured: false, active: true },
+    { _id: '6', name: 'Photography', slug: 'photography', description: 'Photography and video skills', courseCount: 0, createdAt: '', featured: false, active: true },
   ];
 
   const displayCategories = categories.length > 0 ? categories : defaultCategories;

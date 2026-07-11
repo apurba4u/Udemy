@@ -2,6 +2,18 @@ export type UserRole = 'student' | 'admin';
 
 export type AuthProvider = 'email' | 'google';
 
+export type CourseLevel = 'beginner' | 'intermediate' | 'advanced';
+
+export type CourseLanguage = 'English' | 'Bangla' | 'Hindi' | 'Spanish';
+
+export type PaymentStatus = 'Pending' | 'Approved' | 'Rejected' | 'Refunded';
+
+export type CouponType = 'percentage' | 'fixed';
+
+export type PaymentGatewayType = 'stripe' | 'bkash' | 'nagad' | 'paypal' | 'sslcommerz' | 'razorpay';
+
+export type OrderStatus = 'pending' | 'completed' | 'cancelled' | 'refunded';
+
 export interface User {
   _id: string;
   fullName: string;
@@ -22,45 +34,58 @@ export interface Category {
   name: string;
   slug: string;
   description?: string;
+  icon?: string;
   image?: string;
+  featured: boolean;
+  active: boolean;
   courseCount: number;
+  createdAt: string;
+}
+
+export interface CourseSection {
+  _id: string;
+  title: string;
+  course: string;
+  order: number;
   createdAt: string;
 }
 
 export interface Lesson {
   _id: string;
+  section: string;
   title: string;
   description?: string;
   videoUrl: string;
+  preview: boolean;
   duration: number;
+  attachments: string[];
   order: number;
-  isFree: boolean;
-  resources?: string[];
+  createdAt: string;
 }
 
 export interface Course {
   _id: string;
   title: string;
+  subtitle?: string;
   slug: string;
   description: string;
-  shortDescription: string;
+  thumbnail: string;
+  promoVideo?: string;
+  category: Category;
+  instructor: User;
+  language: CourseLanguage;
+  level: CourseLevel;
+  tags: string[];
   price: number;
   discountPrice?: number;
-  thumbnail: string;
-  trailer?: string;
-  instructor: User;
-  category: Category;
-  lessons: Lesson[];
-  duration: number;
-  level: 'beginner' | 'intermediate' | 'advanced';
-  language: string;
-  requirements: string[];
+  estimatedDuration: number;
+  featured: boolean;
+  published: boolean;
   learningOutcomes: string[];
+  requirements: string[];
   enrolledStudents: number;
   rating: number;
   reviewCount: number;
-  isPublished: boolean;
-  isFeatured: boolean;
   createdAt: string;
 }
 
@@ -68,10 +93,20 @@ export interface Enrollment {
   _id: string;
   student: User;
   course: Course;
-  progress: number;
+  payment?: string;
+  enrolledAt: string;
+  completed: boolean;
+  completedAt?: string;
+}
+
+export interface Progress {
+  _id: string;
+  student: User;
+  course: Course;
   completedLessons: string[];
-  lastAccessedAt: string;
-  createdAt: string;
+  progressPercentage: number;
+  lastLesson?: string;
+  updatedAt: string;
 }
 
 export interface Review {
@@ -80,6 +115,57 @@ export interface Review {
   course: string;
   rating: number;
   comment: string;
+  createdAt: string;
+}
+
+export interface Coupon {
+  _id: string;
+  code: string;
+  type: CouponType;
+  value: number;
+  minimumPurchase: number;
+  maximumDiscount?: number;
+  usageLimit: number;
+  perUserLimit: number;
+  expiresAt: string;
+  active: boolean;
+  createdAt: string;
+}
+
+export interface PaymentGateway {
+  _id: string;
+  name: string;
+  type: PaymentGatewayType;
+  enabled: boolean;
+  displayOrder: number;
+  configuration: Record<string, unknown>;
+  instructions?: string;
+  createdAt: string;
+}
+
+export interface Payment {
+  _id: string;
+  order: string;
+  gateway: PaymentGateway;
+  amount: number;
+  currency: string;
+  transactionId?: string;
+  senderNumber?: string;
+  screenshot?: string;
+  status: PaymentStatus;
+  paidAt?: string;
+  createdAt: string;
+}
+
+export interface Order {
+  _id: string;
+  student: User;
+  course: Course;
+  payment?: Payment;
+  originalPrice: number;
+  discount: number;
+  finalPrice: number;
+  status: OrderStatus;
   createdAt: string;
 }
 
