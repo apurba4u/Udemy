@@ -97,6 +97,7 @@ export interface Enrollment {
   enrolledAt: string;
   completed: boolean;
   completedAt?: string;
+  progress?: number;
 }
 
 export interface Progress {
