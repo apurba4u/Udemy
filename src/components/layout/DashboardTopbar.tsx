@@ -1,17 +1,14 @@
 'use client';
 
-import { Menu, Sun, Moon, Bell, Search } from 'lucide-react';
-import { useTheme } from 'next-themes';
+import { Menu, Bell, Search } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Avatar } from '@/components/ui/Avatar';
-import { Button } from '@/components/ui/Button';
 
 interface DashboardTopbarProps {
   onMenuClick: () => void;
 }
 
 export function DashboardTopbar({ onMenuClick }: DashboardTopbarProps) {
-  const { theme, setTheme } = useTheme();
   const { user } = useAuth();
 
   return (
@@ -38,16 +35,9 @@ export function DashboardTopbar({ onMenuClick }: DashboardTopbarProps) {
         </div>
 
         <div className="flex items-center gap-2">
-          <button
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="rounded-lg p-2 text-neutral-600 hover:bg-neutral-100"
-          >
-            {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-          </button>
-
           <button className="relative rounded-lg p-2 text-neutral-600 hover:bg-neutral-100">
             <Bell className="h-5 w-5" />
-            <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-error-500" />
+            <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-red-500" />
           </button>
 
           <div className="hidden sm:block">

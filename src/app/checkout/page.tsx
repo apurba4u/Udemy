@@ -203,7 +203,7 @@ function CheckoutContent() {
           >
             <Card>
               <CardContent className="py-8">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-success-50 dark:bg-success-500/20">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-success-50">
                   <CheckCircle className="h-8 w-8 text-success-500" />
                 </div>
                 <h2 className="mb-2 text-2xl font-bold text-neutral-900">

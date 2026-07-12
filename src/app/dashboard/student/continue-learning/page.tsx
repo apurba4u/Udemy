@@ -114,7 +114,7 @@ function ContinueLearningContent() {
                               {Math.round(mostRecent.progress || 0)}%
                             </span>
                           </div>
-                          <div className="h-3 w-full rounded-full bg-neutral-200 dark:bg-neutral-700">
+                          <div className="h-3 w-full rounded-full bg-neutral-200">
                             <div
                               className="h-3 rounded-full bg-primary-600 transition-all"
                               style={{ width: `${mostRecent.progress || 0}%` }}
@@ -168,7 +168,7 @@ function ContinueLearningContent() {
                             <p className="text-sm text-neutral-500">
                               {enrollment.course?.instructor?.fullName}
                             </p>
-                            <div className="mt-2 h-1.5 w-full rounded-full bg-neutral-200 dark:bg-neutral-700">
+                            <div className="mt-2 h-1.5 w-full rounded-full bg-neutral-200">
                               <div
                                 className="h-1.5 rounded-full bg-primary-600"
                                 style={{ width: `${enrollment.progress || 0}%` }}

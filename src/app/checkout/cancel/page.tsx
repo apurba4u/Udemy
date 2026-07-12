@@ -18,7 +18,7 @@ export default function CheckoutCancelPage() {
         >
           <Card>
             <CardContent className="py-8">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
                 <XCircle className="h-8 w-8 text-red-600" />
               </div>
               <h1 className="mb-2 text-2xl font-bold text-neutral-900">

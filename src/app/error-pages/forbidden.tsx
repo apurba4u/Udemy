@@ -9,7 +9,7 @@ export default function ForbiddenPage() {
     <div className="flex min-h-screen items-center justify-center bg-white">
       <div className="text-center">
         <div className="mb-6 flex justify-center">
-          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-warning-50 dark:bg-warning-500/20">
+          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-warning-50">
             <Lock className="h-10 w-10 text-warning-500" />
           </div>
         </div>

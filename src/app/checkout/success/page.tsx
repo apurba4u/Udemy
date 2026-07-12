@@ -23,7 +23,7 @@ function SuccessContent() {
         >
           <Card>
             <CardContent className="py-8">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                 <CheckCircle className="h-8 w-8 text-green-600" />
               </div>
               <h1 className="mb-2 text-2xl font-bold text-neutral-900">

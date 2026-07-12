@@ -243,7 +243,7 @@ export function Navbar() {
                     </Link>
                     <button
                       onClick={logout}
-                      className="rounded-lg px-3 py-2.5 text-left text-sm font-medium text-red-600 hover:bg-red-50 dark:text-red-400"
+                      className="rounded-lg px-3 py-2.5 text-left text-sm font-medium text-red-600 hover:bg-red-50"
                     >
                       Logout
                     </button>

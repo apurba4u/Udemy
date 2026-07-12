@@ -225,7 +225,7 @@ function CourseContent({ course }: { course: Course }) {
                 <img
                   src={course.instructor?.avatar || ''}
                   alt={course.instructor?.fullName || ''}
-                  className="h-16 w-16 rounded-full bg-neutral-200 dark:bg-neutral-700"
+                  className="h-16 w-16 rounded-full bg-neutral-200"
                 />
                 <div>
                   <p className="font-medium text-neutral-900">

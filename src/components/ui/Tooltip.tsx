@@ -29,7 +29,7 @@ export function Tooltip({ content, children, position = 'top' }: TooltipProps) {
       {isVisible && (
         <div
           className={cn(
-            'absolute z-50 whitespace-nowrap rounded-md bg-neutral-900 px-2 py-1 text-xs text-white dark:bg-neutral-100 dark:text-neutral-900',
+            'absolute z-50 whitespace-nowrap rounded-md bg-neutral-900 px-2 py-1 text-xs text-white',
             positions[position]
           )}
         >

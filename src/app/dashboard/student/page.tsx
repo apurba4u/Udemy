@@ -206,7 +206,7 @@ function ContinueLearning() {
               <p className="text-sm text-neutral-500">
                 {enrollment.course?.instructor?.fullName}
               </p>
-              <div className="mt-2 h-2 w-full rounded-full bg-neutral-200 dark:bg-neutral-700">
+              <div className="mt-2 h-2 w-full rounded-full bg-neutral-200">
                 <div
                   className="h-2 rounded-full bg-primary-600"
                   style={{ width: `${enrollment.progress || 0}%` }}
@@ -235,7 +235,7 @@ function RecentActivity() {
       <CardContent>
         <div className="space-y-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-success-50 dark:bg-success-500/20">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-success-50">
               <Award className="h-4 w-4 text-success-500" />
             </div>
             <div>

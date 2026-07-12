@@ -27,7 +27,7 @@ const sortOptions = [
 
 function HeroSection() {
   return (
-    <section className="bg-gradient-to-br from-primary-50 to-white py-12 dark:from-primary-950/20 dark:to-neutral-950">
+    <section className="bg-gradient-to-br from-primary-50 to-white py-12">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -191,7 +191,7 @@ export default function CoursesPage() {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search courses..."
-                  className="w-full rounded-lg border border-neutral-300 py-2.5 pl-10 pr-4 focus:border-primary-500 focus:outline-none dark:border-neutral-600"
+                  className="w-full rounded-lg border border-neutral-300 py-2.5 pl-10 pr-4 focus:border-primary-500 focus:outline-none"
                 />
               </div>
               <Button type="submit">Search</Button>
@@ -213,7 +213,7 @@ export default function CoursesPage() {
                   setSelectedSort(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="rounded-lg border border-neutral-300 px-3 py-2.5 focus:border-primary-500 focus:outline-none dark:border-neutral-600"
+                className="rounded-lg border border-neutral-300 px-3 py-2.5 focus:border-primary-500 focus:outline-none"
               >
                 {sortOptions.map((option) => (
                   <option key={option.value} value={option.value}>

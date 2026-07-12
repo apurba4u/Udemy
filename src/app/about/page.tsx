@@ -15,7 +15,7 @@ const fadeInUp = {
 
 function HeroSection() {
   return (
-    <section className="bg-gradient-to-br from-primary-50 to-white py-20 dark:from-primary-950/20 dark:to-neutral-950">
+    <section className="bg-gradient-to-br from-primary-50 to-white py-20">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}

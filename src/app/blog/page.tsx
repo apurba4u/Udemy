@@ -74,7 +74,7 @@ const blogPosts = [
 
 function HeroSection() {
   return (
-    <section className="bg-gradient-to-br from-primary-50 to-white py-20 dark:from-primary-950/20 dark:to-neutral-950">
+    <section className="bg-gradient-to-br from-primary-50 to-white py-20">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -108,7 +108,7 @@ function BlogGrid() {
             >
               <Card hover className="group h-full">
                 <div className="relative mb-4 overflow-hidden rounded-lg">
-                  <div className="h-48 bg-neutral-200 dark:bg-neutral-700" />
+                  <div className="h-48 bg-neutral-200" />
                   <Badge variant="primary" className="absolute left-2 top-2">
                     {post.category}
                   </Badge>

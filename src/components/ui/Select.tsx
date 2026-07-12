@@ -35,8 +35,8 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
               'disabled:cursor-not-allowed disabled:opacity-50',
               error
                 ? 'border-error-500 focus:ring-error-500'
-                : 'border-neutral-300 dark:border-neutral-600',
-              'dark:bg-neutral-900',
+                : 'border-neutral-300',
+              '',
               className
             )}
             aria-invalid={error ? 'true' : 'false'}

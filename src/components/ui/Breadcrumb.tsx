@@ -22,18 +22,18 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
         <li>
           <Link
             href="/"
-            className="flex items-center gap-1 text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-200"
+            className="flex items-center gap-1 text-neutral-500 hover:text-neutral-700"
           >
             <Home className="h-4 w-4" />
           </Link>
         </li>
         {items.map((item, index) => (
           <li key={index} className="flex items-center gap-1.5">
-            <ChevronRight className="h-4 w-4 text-neutral-300 dark:text-neutral-600" />
+            <ChevronRight className="h-4 w-4 text-neutral-300" />
             {item.href ? (
               <Link
                 href={item.href}
-                className="text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-200"
+                className="text-neutral-500 hover:text-neutral-700"
               >
                 {item.label}
               </Link>
