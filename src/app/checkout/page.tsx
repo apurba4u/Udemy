@@ -108,9 +108,10 @@ function CheckoutContent() {
 
       const order = orderResponse.data.data.order;
       const gateway = orderResponse.data.data.gateway;
+      const stripeUrl = orderResponse.data.data.stripeUrl;
 
-      if (gateway?.type === 'stripe') {
-        toast.success('Redirecting to Stripe...');
+      if (gateway?.type === 'stripe' && stripeUrl) {
+        window.location.href = stripeUrl;
       } else {
         setStep('payment');
       }
