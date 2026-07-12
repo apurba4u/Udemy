@@ -37,7 +37,12 @@ export default function LoginPage() {
       const success = await login(data.email, data.password);
 
       if (success) {
-        router.push('/');
+        const userData = JSON.parse(localStorage.getItem('user') || '{}');
+        if (userData.role === 'admin') {
+          router.push('/dashboard/admin');
+        } else {
+          router.push('/dashboard/student');
+        }
       }
     } finally {
       setIsLoading(false);

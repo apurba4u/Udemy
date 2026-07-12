@@ -55,6 +55,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (response.data.success) {
         const { token, user: userData } = response.data.data;
         localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(userData));
         setUser(userData);
         toast.success('Login successful!');
         return true;
@@ -92,6 +93,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // Ignore logout errors
     } finally {
       localStorage.removeItem('token');
+      localStorage.removeItem('user');
       setUser(null);
       toast.success('Logged out successfully');
       router.push('/');
