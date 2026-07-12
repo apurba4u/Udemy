@@ -58,6 +58,13 @@ export function Navbar() {
     { href: '/dashboard/admin/analytics', label: 'Analytics' },
   ];
 
+  const adminDropdownLinks = [
+    { href: '/dashboard/admin', label: 'Dashboard' },
+    { href: '/dashboard/admin/users', label: 'Users' },
+    { href: '/dashboard/admin/courses', label: 'Courses' },
+    { href: '/dashboard/admin/analytics', label: 'Analytics' },
+  ];
+
   const navLinks = user
     ? user.role === 'admin'
       ? adminLinks
@@ -138,15 +145,26 @@ export function Navbar() {
                             </p>
                           </div>
                           <div className="mt-1">
-                            <Link
-                              href={user.role === 'admin' ? '/dashboard/admin' : '/dashboard/student'}
-                              className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
-                            >
-                              <LayoutDashboard className="h-4 w-4" />
-                              Dashboard
-                            </Link>
-                            {user.role === 'student' && (
+                            {user.role === 'admin' ? (
+                              adminDropdownLinks.map((link) => (
+                                <Link
+                                  key={link.href}
+                                  href={link.href}
+                                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
+                                >
+                                  <LayoutDashboard className="h-4 w-4" />
+                                  {link.label}
+                                </Link>
+                              ))
+                            ) : (
                               <>
+                                <Link
+                                  href="/dashboard/student"
+                                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
+                                >
+                                  <LayoutDashboard className="h-4 w-4" />
+                                  Dashboard
+                                </Link>
                                 <Link
                                   href="/dashboard/student/my-learning"
                                   className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"

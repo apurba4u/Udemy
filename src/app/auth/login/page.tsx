@@ -195,10 +195,24 @@ export default function LoginPage() {
 
           <p className="mt-6 text-center text-gray-600">
             Don&apos;t have an account?{' '}
-            <Link href="/auth/register" className="text-purple-600 hover:underline">
+            <Link href="/auth/register" className="text-primary-600 hover:underline">
               Sign up
             </Link>
           </p>
+
+          <div className="mt-6 rounded-lg border border-gray-200 bg-gray-50 p-4">
+            <p className="mb-3 text-sm font-medium text-gray-700">Demo Credentials</p>
+            <div className="space-y-2 text-sm">
+              <div>
+                <span className="font-medium text-gray-900">Admin:</span>{' '}
+                <span className="text-gray-600">admin@udemy.com / @Admin3124</span>
+              </div>
+              <div>
+                <span className="font-medium text-gray-900">Student:</span>{' '}
+                <span className="text-gray-600">student@demo.com / @Student123</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

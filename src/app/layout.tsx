@@ -26,7 +26,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Udemy Clone - Online Learning Platform',
+  title: 'LearnHub - Online Learning Platform',
   description: 'Learn from expert instructors with thousands of courses on programming, business, and more.',
   keywords: 'online courses, learning, education, programming, business',
 };

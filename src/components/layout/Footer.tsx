@@ -17,10 +17,10 @@ const footerLinks = {
     { label: 'Privacy', href: '/privacy' },
   ],
   categories: [
-    { label: 'Development', href: '/courses?category=development' },
-    { label: 'Business', href: '/courses?category=business' },
-    { label: 'Design', href: '/courses?category=design' },
-    { label: 'Marketing', href: '/courses?category=marketing' },
+    { label: 'Web Development', href: '/courses?category=web-development' },
+    { label: 'Mobile Development', href: '/courses?category=mobile-development' },
+    { label: 'Data Science', href: '/courses?category=data-science' },
+    { label: 'UI/UX Design', href: '/courses?category=ui-ux-design' },
   ],
 };
 
@@ -31,7 +31,7 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           <div>
             <Link href="/" className="inline-block">
-              <span className="text-xl font-bold text-primary-600">Udemy Clone</span>
+              <span className="text-xl font-bold text-primary-600">LearnHub</span>
             </Link>
             <p className="mt-4 text-sm text-neutral-500 dark:text-neutral-400">
               Learn from expert instructors with thousands of courses on programming, business, and more.
@@ -94,9 +94,20 @@ export function Footer() {
         </div>
 
         <div className="mt-8 border-t border-neutral-200 pt-8 dark:border-neutral-800">
+          <div className="mb-6 rounded-lg bg-primary-50 p-4 dark:bg-primary-900/20">
+            <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+              <div>
+                <p className="font-semibold text-primary-700 dark:text-primary-400">Today&apos;s Deals</p>
+                <p className="text-sm text-primary-600 dark:text-primary-300">Use code <span className="font-mono font-bold">WELCOME20</span> for 20% off</p>
+              </div>
+              <Link href="/courses" className="rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700">
+                Shop Now
+              </Link>
+            </div>
+          </div>
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-sm text-neutral-500 dark:text-neutral-400">
-              &copy; {new Date().getFullYear()} Udemy Clone. All rights reserved.
+              &copy; {new Date().getFullYear()} LearnHub. All rights reserved.
             </p>
             <div className="flex items-center gap-4">
               <a href="#" className="text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200">
