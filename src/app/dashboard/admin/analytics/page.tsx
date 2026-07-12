@@ -93,10 +93,10 @@ function AnalyticsContent() {
     <AdminLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-2xl font-bold text-neutral-900">
             Analytics
           </h1>
-          <p className="text-neutral-500 dark:text-neutral-400">
+          <p className="text-neutral-500">
             Platform performance and insights
           </p>
         </div>
@@ -119,14 +119,14 @@ function AnalyticsContent() {
                 <CardContent>
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                      <p className="text-sm text-neutral-500">
                         {stat.label}
                       </p>
-                      <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+                      <p className="text-2xl font-bold text-neutral-900">
                         {stat.value.toLocaleString()}
                       </p>
                     </div>
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-100 dark:bg-primary-900/30">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-100">
                       <stat.icon className="h-6 w-6 text-primary-600" />
                     </div>
                   </div>

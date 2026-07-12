@@ -22,7 +22,7 @@ const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
             'w-full rounded-lg border border-neutral-300 bg-white py-2.5 pl-10 pr-10 text-sm transition-colors',
             'placeholder:text-neutral-400',
             'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1',
-            'dark:border-neutral-600 dark:bg-neutral-900 dark:text-neutral-100',
+            'dark:border-neutral-600',
             className
           )}
           {...props}

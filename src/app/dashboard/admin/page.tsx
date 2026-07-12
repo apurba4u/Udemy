@@ -97,14 +97,14 @@ function StatsCards() {
             <Card hover className="cursor-pointer">
               <CardContent className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-100 dark:bg-primary-900/30">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-100">
                     <stat.icon className="h-6 w-6 text-primary-600" />
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+                    <p className="text-2xl font-bold text-neutral-900">
                       {stat.value.toLocaleString()}
                     </p>
-                    <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                    <p className="text-sm text-neutral-500">
                       {stat.label}
                     </p>
                   </div>
@@ -183,14 +183,14 @@ function RecentActivity() {
         <div className="space-y-4">
           {activities.map((activity) => (
             <div key={activity.id} className="flex items-start gap-3">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary-100 dark:bg-primary-900/30">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary-100">
                 <Clock className="h-4 w-4 text-primary-600" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm text-neutral-900 dark:text-neutral-100">
+                <p className="text-sm text-neutral-900">
                   {activity.message}
                 </p>
-                <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                <p className="text-xs text-neutral-500">
                   {activity.time}
                 </p>
               </div>
@@ -220,10 +220,10 @@ function QuickActions() {
             <Link
               key={action.label}
               href={action.href}
-              className="flex items-center gap-3 rounded-lg border border-neutral-200 p-4 transition-colors hover:bg-neutral-50 dark:border-neutral-700 dark:hover:bg-neutral-800"
+              className="flex items-center gap-3 rounded-lg border border-neutral-200 p-4 transition-colors hover:bg-neutral-50"
             >
               <action.icon className="h-5 w-5 text-primary-600" />
-              <span className="font-medium text-neutral-900 dark:text-neutral-100">
+              <span className="font-medium text-neutral-900">
                 {action.label}
               </span>
             </Link>
@@ -239,10 +239,10 @@ function AdminDashboardContent() {
     <AdminLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-2xl font-bold text-neutral-900">
             Admin Dashboard
           </h1>
-          <p className="text-neutral-500 dark:text-neutral-400">
+          <p className="text-neutral-500">
             Welcome back! Here&apos;s what&apos;s happening with your platform.
           </p>
         </div>

@@ -34,10 +34,10 @@ function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center"
         >
-          <h1 className="mb-4 text-3xl font-bold text-neutral-900 dark:text-neutral-100 sm:text-4xl">
+          <h1 className="mb-4 text-3xl font-bold text-neutral-900 sm:text-4xl">
             Explore Courses
           </h1>
-          <p className="text-neutral-600 dark:text-neutral-400">
+          <p className="text-neutral-600">
             Discover courses to advance your career
           </p>
         </motion.div>
@@ -70,11 +70,11 @@ function CourseCard({ course }: { course: Course }) {
           <Badge variant="outline">{course.category?.name || 'Uncategorized'}</Badge>
         </div>
 
-        <h3 className="mb-2 line-clamp-2 font-semibold text-neutral-900 dark:text-neutral-100 group-hover:text-primary-600">
+        <h3 className="mb-2 line-clamp-2 font-semibold text-neutral-900 group-hover:text-primary-600">
           {course.title}
         </h3>
 
-        <p className="mb-2 text-sm text-neutral-500 dark:text-neutral-400">
+        <p className="mb-2 text-sm text-neutral-500">
           {course.instructor?.fullName || 'Unknown Instructor'}
         </p>
 
@@ -85,7 +85,7 @@ function CourseCard({ course }: { course: Course }) {
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-lg font-bold text-neutral-900 dark:text-neutral-100">
+          <span className="text-lg font-bold text-neutral-900">
             ${course.discountPrice || course.price}
           </span>
           {course.discountPrice && (
@@ -101,7 +101,7 @@ function CourseCard({ course }: { course: Course }) {
 
 function SkeletonCard() {
   return (
-    <div className="rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
+    <div className="rounded-xl border border-neutral-200 p-4">
       <Skeleton className="mb-4 h-40 w-full rounded-lg" />
       <Skeleton className="mb-2 h-4 w-3/4" />
       <Skeleton className="mb-2 h-4 w-1/2" />
@@ -191,7 +191,7 @@ export default function CoursesPage() {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search courses..."
-                  className="w-full rounded-lg border border-neutral-300 py-2.5 pl-10 pr-4 focus:border-primary-500 focus:outline-none dark:border-neutral-600 dark:bg-neutral-800"
+                  className="w-full rounded-lg border border-neutral-300 py-2.5 pl-10 pr-4 focus:border-primary-500 focus:outline-none dark:border-neutral-600"
                 />
               </div>
               <Button type="submit">Search</Button>
@@ -213,7 +213,7 @@ export default function CoursesPage() {
                   setSelectedSort(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="rounded-lg border border-neutral-300 px-3 py-2.5 focus:border-primary-500 focus:outline-none dark:border-neutral-600 dark:bg-neutral-800"
+                className="rounded-lg border border-neutral-300 px-3 py-2.5 focus:border-primary-500 focus:outline-none dark:border-neutral-600"
               >
                 {sortOptions.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -226,7 +226,7 @@ export default function CoursesPage() {
 
           {hasActiveFilters && (
             <div className="mb-6 flex flex-wrap items-center gap-2">
-              <span className="text-sm text-neutral-500 dark:text-neutral-400">Active filters:</span>
+              <span className="text-sm text-neutral-500">Active filters:</span>
               {search && (
                 <Badge variant="primary" className="gap-1">
                   Search: {search}
@@ -267,7 +267,7 @@ export default function CoursesPage() {
             )}>
               <div className="sticky top-24 space-y-6">
                 <div>
-                  <h3 className="mb-3 font-semibold text-neutral-900 dark:text-neutral-100">
+                  <h3 className="mb-3 font-semibold text-neutral-900">
                     Category
                   </h3>
                   <div className="space-y-2">
@@ -279,8 +279,8 @@ export default function CoursesPage() {
                       className={cn(
                         'block w-full rounded-lg px-3 py-2 text-left text-sm transition-colors',
                         !selectedCategory
-                          ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400'
-                          : 'text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800'
+                          ? 'bg-primary-100 text-primary-700'
+                          : 'text-neutral-600 hover:bg-neutral-100'
                       )}
                     >
                       All Categories
@@ -295,8 +295,8 @@ export default function CoursesPage() {
                         className={cn(
                           'block w-full rounded-lg px-3 py-2 text-left text-sm transition-colors',
                           selectedCategory === category._id
-                            ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400'
-                            : 'text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800'
+                            ? 'bg-primary-100 text-primary-700'
+                            : 'text-neutral-600 hover:bg-neutral-100'
                         )}
                       >
                         {category.name}
@@ -306,7 +306,7 @@ export default function CoursesPage() {
                 </div>
 
                 <div>
-                  <h3 className="mb-3 font-semibold text-neutral-900 dark:text-neutral-100">
+                  <h3 className="mb-3 font-semibold text-neutral-900">
                     Level
                   </h3>
                   <div className="space-y-2">
@@ -320,8 +320,8 @@ export default function CoursesPage() {
                         className={cn(
                           'block w-full rounded-lg px-3 py-2 text-left text-sm capitalize transition-colors',
                           selectedLevel === level
-                            ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400'
-                            : 'text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800'
+                            ? 'bg-primary-100 text-primary-700'
+                            : 'text-neutral-600 hover:bg-neutral-100'
                         )}
                       >
                         {level}
@@ -341,7 +341,7 @@ export default function CoursesPage() {
                 </div>
               ) : courses.length === 0 ? (
                 <div className="py-12 text-center">
-                  <p className="mb-4 text-lg text-neutral-600 dark:text-neutral-400">
+                  <p className="mb-4 text-lg text-neutral-600">
                     No courses found
                   </p>
                   <Button variant="outline" onClick={clearFilters}>

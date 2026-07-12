@@ -167,10 +167,10 @@ function CourseContent({ course }: { course: Course }) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <h2 className="mb-4 text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+              <h2 className="mb-4 text-2xl font-bold text-neutral-900">
                 About This Course
               </h2>
-              <p className="text-neutral-600 dark:text-neutral-400 whitespace-pre-line">
+              <p className="text-neutral-600 whitespace-pre-line">
                 {course.description}
               </p>
             </motion.div>
@@ -181,14 +181,14 @@ function CourseContent({ course }: { course: Course }) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
               >
-                <h2 className="mb-4 text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+                <h2 className="mb-4 text-2xl font-bold text-neutral-900">
                   What You&apos;ll Learn
                 </h2>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {course.learningOutcomes.map((outcome, index) => (
                     <div key={index} className="flex items-start gap-2">
                       <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-success-500" />
-                      <span className="text-neutral-600 dark:text-neutral-400">{outcome}</span>
+                      <span className="text-neutral-600">{outcome}</span>
                     </div>
                   ))}
                 </div>
@@ -201,14 +201,14 @@ function CourseContent({ course }: { course: Course }) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
               >
-                <h2 className="mb-4 text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+                <h2 className="mb-4 text-2xl font-bold text-neutral-900">
                   Requirements
                 </h2>
                 <ul className="space-y-2">
                   {course.requirements.map((req, index) => (
                     <li key={index} className="flex items-start gap-2">
                       <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-primary-500" />
-                      <span className="text-neutral-600 dark:text-neutral-400">{req}</span>
+                      <span className="text-neutral-600">{req}</span>
                     </li>
                   ))}
                 </ul>
@@ -218,7 +218,7 @@ function CourseContent({ course }: { course: Course }) {
 
           <div className="lg:col-span-1">
             <Card>
-              <h3 className="mb-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+              <h3 className="mb-4 text-lg font-semibold text-neutral-900">
                 Instructor
               </h3>
               <div className="flex items-center gap-3">
@@ -228,10 +228,10 @@ function CourseContent({ course }: { course: Course }) {
                   className="h-16 w-16 rounded-full bg-neutral-200 dark:bg-neutral-700"
                 />
                 <div>
-                  <p className="font-medium text-neutral-900 dark:text-neutral-100">
+                  <p className="font-medium text-neutral-900">
                     {course.instructor?.fullName}
                   </p>
-                  <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                  <p className="text-sm text-neutral-500">
                     Instructor
                   </p>
                 </div>
@@ -308,7 +308,7 @@ export default function CourseDetailsPage() {
       <PublicLayout>
         <div className="flex min-h-[60vh] items-center justify-center">
           <div className="text-center">
-            <h1 className="mb-4 text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+            <h1 className="mb-4 text-2xl font-bold text-neutral-900">
               Course not found
             </h1>
             <Link href="/courses">

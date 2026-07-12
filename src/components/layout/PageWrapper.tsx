@@ -10,7 +10,7 @@ interface PageWrapperProps {
 
 export function PageWrapper({ children, className }: PageWrapperProps) {
   return (
-    <div className={cn('min-h-screen bg-white dark:bg-neutral-950', className)}>
+    <div className={cn('min-h-screen bg-white', className)}>
       {children}
     </div>
   );

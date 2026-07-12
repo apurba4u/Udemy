@@ -27,7 +27,7 @@ export function FullScreenLoader() {
     <div className="flex min-h-screen items-center justify-center">
       <div className="text-center">
         <Spinner size="lg" />
-        <p className="mt-4 text-sm text-neutral-500 dark:text-neutral-400">
+        <p className="mt-4 text-sm text-neutral-500">
           Loading...
         </p>
       </div>
@@ -39,7 +39,7 @@ export function InlineLoader({ text = 'Loading...' }: { text?: string }) {
   return (
     <div className="flex items-center justify-center gap-2 py-8">
       <Spinner size="sm" />
-      <span className="text-sm text-neutral-500 dark:text-neutral-400">{text}</span>
+      <span className="text-sm text-neutral-500">{text}</span>
     </div>
   );
 }

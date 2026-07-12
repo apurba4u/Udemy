@@ -81,10 +81,10 @@ function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           className="mx-auto max-w-3xl text-center"
         >
-          <h1 className="mb-6 text-4xl font-bold text-neutral-900 dark:text-neutral-100 sm:text-5xl">
+          <h1 className="mb-6 text-4xl font-bold text-neutral-900 sm:text-5xl">
             Our Blog
           </h1>
-          <p className="text-lg text-neutral-600 dark:text-neutral-400">
+          <p className="text-lg text-neutral-600">
             Stay updated with the latest trends and tips in online learning.
           </p>
         </motion.div>
@@ -114,7 +114,7 @@ function BlogGrid() {
                   </Badge>
                 </div>
 
-                <div className="flex items-center gap-4 text-sm text-neutral-500 dark:text-neutral-400">
+                <div className="flex items-center gap-4 text-sm text-neutral-500">
                   <div className="flex items-center gap-1">
                     <Clock className="h-4 w-4" />
                     <span>{post.readTime}</span>
@@ -122,11 +122,11 @@ function BlogGrid() {
                   <span>{post.date}</span>
                 </div>
 
-                <h3 className="mb-2 mt-4 line-clamp-2 text-xl font-semibold text-neutral-900 dark:text-neutral-100 group-hover:text-primary-600">
+                <h3 className="mb-2 mt-4 line-clamp-2 text-xl font-semibold text-neutral-900 group-hover:text-primary-600">
                   {post.title}
                 </h3>
 
-                <p className="mb-4 line-clamp-2 text-neutral-600 dark:text-neutral-400">
+                <p className="mb-4 line-clamp-2 text-neutral-600">
                   {post.excerpt}
                 </p>
 

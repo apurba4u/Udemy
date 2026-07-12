@@ -106,10 +106,10 @@ function UsersContent() {
         <div className="flex items-center gap-3">
           <Avatar src={user.avatar} alt={user.fullName} size="sm" />
           <div>
-            <p className="font-medium text-neutral-900 dark:text-neutral-100">
+            <p className="font-medium text-neutral-900">
               {user.fullName}
             </p>
-            <p className="text-sm text-neutral-500 dark:text-neutral-400">
+            <p className="text-sm text-neutral-500">
               {user.email}
             </p>
           </div>
@@ -149,7 +149,7 @@ function UsersContent() {
       label: 'Joined',
       sortable: true,
       render: (user) => (
-        <span className="text-sm text-neutral-500 dark:text-neutral-400">
+        <span className="text-sm text-neutral-500">
           {new Date(user.createdAt).toLocaleDateString()}
         </span>
       ),
@@ -164,16 +164,16 @@ function UsersContent() {
               e.stopPropagation();
               setShowActions(showActions === user._id ? null : user._id);
             }}
-            className="rounded-lg p-2 text-neutral-500 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+            className="rounded-lg p-2 text-neutral-500 hover:bg-neutral-100"
           >
             <MoreVertical className="h-4 w-4" />
           </button>
 
           {showActions === user._id && (
-            <div className="absolute right-0 top-full z-10 mt-1 w-48 rounded-lg border border-neutral-200 bg-white py-1 shadow-lg dark:border-neutral-700 dark:bg-neutral-900">
+            <div className="absolute right-0 top-full z-10 mt-1 w-48 rounded-lg border border-neutral-200 bg-white py-1 shadow-lg">
               <button
                 onClick={() => handleBlockUser(user._id, user.isBlocked)}
-                className="flex w-full items-center gap-2 px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
+                className="flex w-full items-center gap-2 px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100"
               >
                 {user.isBlocked ? (
                   <>
@@ -189,7 +189,7 @@ function UsersContent() {
               </button>
               <button
                 onClick={() => handleChangeRole(user._id, user.role === 'admin' ? 'student' : 'admin')}
-                className="flex w-full items-center gap-2 px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
+                className="flex w-full items-center gap-2 px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100"
               >
                 <UserX className="h-4 w-4" />
                 Change Role
@@ -205,10 +205,10 @@ function UsersContent() {
     <AdminLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-2xl font-bold text-neutral-900">
             User Management
           </h1>
-          <p className="text-neutral-500 dark:text-neutral-400">
+          <p className="text-neutral-500">
             Manage all users on the platform
           </p>
         </div>
@@ -222,7 +222,7 @@ function UsersContent() {
                 placeholder="Search users..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full rounded-lg border border-neutral-300 py-2.5 pl-10 pr-4 focus:border-primary-500 focus:outline-none dark:border-neutral-600 dark:bg-neutral-800 sm:w-64"
+                className="w-full rounded-lg border border-neutral-300 py-2.5 pl-10 pr-4 focus:border-primary-500 focus:outline-none dark:border-neutral-600 sm:w-64"
               />
             </div>
             <Button type="submit">Search</Button>
@@ -235,7 +235,7 @@ function UsersContent() {
                 setRoleFilter(e.target.value);
                 setCurrentPage(1);
               }}
-              className="rounded-lg border border-neutral-300 px-3 py-2.5 focus:border-primary-500 focus:outline-none dark:border-neutral-600 dark:bg-neutral-800"
+              className="rounded-lg border border-neutral-300 px-3 py-2.5 focus:border-primary-500 focus:outline-none dark:border-neutral-600"
             >
               <option value="">All Roles</option>
               <option value="student">Students</option>

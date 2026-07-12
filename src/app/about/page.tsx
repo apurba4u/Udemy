@@ -22,10 +22,10 @@ function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           className="mx-auto max-w-3xl text-center"
         >
-          <h1 className="mb-6 text-4xl font-bold text-neutral-900 dark:text-neutral-100 sm:text-5xl">
+          <h1 className="mb-6 text-4xl font-bold text-neutral-900 sm:text-5xl">
             About Us
           </h1>
-          <p className="text-lg text-neutral-600 dark:text-neutral-400">
+          <p className="text-lg text-neutral-600">
             Empowering learners worldwide with quality education
           </p>
         </motion.div>
@@ -41,13 +41,13 @@ function MissionVisionSection() {
         <div className="grid gap-8 md:grid-cols-2">
           <motion.div {...fadeInUp}>
             <Card className="h-full">
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary-100 dark:bg-primary-900/30">
+              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary-100">
                 <Target className="h-7 w-7 text-primary-600" />
               </div>
-              <h2 className="mb-4 text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+              <h2 className="mb-4 text-2xl font-bold text-neutral-900">
                 Our Mission
               </h2>
-              <p className="text-neutral-600 dark:text-neutral-400">
+              <p className="text-neutral-600">
                 We believe that everyone should have access to quality education. Our platform
                 connects learners with expert instructors from around the world, making learning
                 accessible, affordable, and engaging.
@@ -57,13 +57,13 @@ function MissionVisionSection() {
 
           <motion.div {...fadeInUp} transition={{ delay: 0.1 }}>
             <Card className="h-full">
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary-100 dark:bg-primary-900/30">
+              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary-100">
                 <Eye className="h-7 w-7 text-primary-600" />
               </div>
-              <h2 className="mb-4 text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+              <h2 className="mb-4 text-2xl font-bold text-neutral-900">
                 Our Vision
               </h2>
-              <p className="text-neutral-600 dark:text-neutral-400">
+              <p className="text-neutral-600">
                 To become the world&apos;s leading learning platform, empowering millions of
                 learners to transform their lives through education.
               </p>
@@ -100,7 +100,7 @@ function ValuesSection() {
   ];
 
   return (
-    <Section padding="lg" className="bg-neutral-50 dark:bg-neutral-900">
+    <Section padding="lg" className="bg-neutral-50">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -108,10 +108,10 @@ function ValuesSection() {
           viewport={{ once: true }}
           className="mb-12 text-center"
         >
-          <h2 className="mb-4 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h2 className="mb-4 text-3xl font-bold text-neutral-900">
             Our Values
           </h2>
-          <p className="text-neutral-600 dark:text-neutral-400">
+          <p className="text-neutral-600">
             The principles that guide everything we do
           </p>
         </motion.div>
@@ -126,13 +126,13 @@ function ValuesSection() {
               transition={{ delay: index * 0.1 }}
             >
               <Card hover className="h-full text-center">
-                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary-100 dark:bg-primary-900/30">
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary-100">
                   <value.icon className="h-7 w-7 text-primary-600" />
                 </div>
-                <h3 className="mb-2 font-semibold text-neutral-900 dark:text-neutral-100">
+                <h3 className="mb-2 font-semibold text-neutral-900">
                   {value.title}
                 </h3>
-                <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                <p className="text-sm text-neutral-500">
                   {value.description}
                 </p>
               </Card>
@@ -168,7 +168,7 @@ function StatsSection() {
               <div className="mb-2 text-4xl font-bold text-primary-600">
                 {stat.value}
               </div>
-              <div className="text-neutral-600 dark:text-neutral-400">
+              <div className="text-neutral-600">
                 {stat.label}
               </div>
             </motion.div>

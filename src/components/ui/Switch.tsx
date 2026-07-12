@@ -29,7 +29,7 @@ const Switch = forwardRef<HTMLInputElement, SwitchProps>(
         {label && (
           <label
             htmlFor={switchId}
-            className="text-sm text-neutral-700 dark:text-neutral-300"
+            className="text-sm text-neutral-700"
           >
             {label}
           </label>

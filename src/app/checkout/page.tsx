@@ -148,7 +148,7 @@ function CheckoutContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950 py-12">
+      <div className="min-h-screen bg-neutral-50 py-12">
         <Container>
           <div className="mx-auto max-w-4xl">
             <div className="animate-pulse space-y-6">
@@ -166,7 +166,7 @@ function CheckoutContent() {
 
   if (!course) {
     return (
-      <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950 py-12">
+      <div className="min-h-screen bg-neutral-50 py-12">
         <Container>
           <div className="text-center py-12">
             <p className="text-neutral-500">Course not found</p>
@@ -182,16 +182,16 @@ function CheckoutContent() {
   const selectedGatewayData = gateways.find(g => g._id === selectedGateway);
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950 py-8">
+    <div className="min-h-screen bg-neutral-50 py-8">
       <Container>
         <div className="mb-6">
-          <Link href={`/courses/${course.slug}`} className="inline-flex items-center gap-2 text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100">
+          <Link href={`/courses/${course.slug}`} className="inline-flex items-center gap-2 text-neutral-600 hover:text-neutral-900">
             <ArrowLeft className="h-4 w-4" />
             Back to course
           </Link>
         </div>
 
-        <h1 className="mb-6 text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+        <h1 className="mb-6 text-2xl font-bold text-neutral-900">
           Checkout
         </h1>
 
@@ -206,10 +206,10 @@ function CheckoutContent() {
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-success-50 dark:bg-success-500/20">
                   <CheckCircle className="h-8 w-8 text-success-500" />
                 </div>
-                <h2 className="mb-2 text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+                <h2 className="mb-2 text-2xl font-bold text-neutral-900">
                   Payment Submitted!
                 </h2>
-                <p className="mb-6 text-neutral-500 dark:text-neutral-400">
+                <p className="mb-6 text-neutral-500">
                   Your payment is being verified. You will get access once approved.
                 </p>
                 <div className="flex gap-4 justify-center">
@@ -238,10 +238,10 @@ function CheckoutContent() {
                       className="h-24 w-32 rounded-lg object-cover"
                     />
                     <div>
-                      <h3 className="font-semibold text-neutral-900 dark:text-neutral-100">
+                      <h3 className="font-semibold text-neutral-900">
                         {course.title}
                       </h3>
-                      <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                      <p className="text-sm text-neutral-500">
                         {course.instructor?.fullName}
                       </p>
                       <div className="mt-2 flex items-center gap-2">
@@ -263,17 +263,17 @@ function CheckoutContent() {
                       <CardTitle>Manual Payment</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      <div className="rounded-lg bg-blue-50 p-4 dark:bg-blue-900/20">
-                        <p className="text-sm text-blue-800 dark:text-blue-300">
+                      <div className="rounded-lg bg-blue-50 p-4">
+                        <p className="text-sm text-blue-800">
                           {selectedGatewayData?.instructions || 'Follow the instructions below to complete payment.'}
                         </p>
                         {selectedGatewayData?.configuration?.accountNumber ? (
-                          <p className="mt-2 font-mono text-lg font-bold text-blue-900 dark:text-blue-200">
+                          <p className="mt-2 font-mono text-lg font-bold text-blue-900">
                             Account: {String(selectedGatewayData.configuration.accountNumber)}
                           </p>
                         ) : null}
                         {selectedGatewayData?.configuration?.accountHolder ? (
-                          <p className="text-sm text-blue-800 dark:text-blue-300">
+                          <p className="text-sm text-blue-800">
                             Holder: {String(selectedGatewayData.configuration.accountHolder)}
                           </p>
                         ) : null}
@@ -310,7 +310,7 @@ function CheckoutContent() {
               <Card className="sticky top-24">
                 <CardContent className="space-y-4">
                   <div>
-                    <h3 className="mb-2 font-semibold text-neutral-900 dark:text-neutral-100">Price Details</h3>
+                    <h3 className="mb-2 font-semibold text-neutral-900">Price Details</h3>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span className="text-neutral-500">Original Price</span>
@@ -330,7 +330,7 @@ function CheckoutContent() {
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                    <label className="mb-1 block text-sm font-medium text-neutral-700">
                       Have a coupon?
                     </label>
                     <div className="flex gap-2">
@@ -351,15 +351,15 @@ function CheckoutContent() {
                   </div>
 
                   <div>
-                    <h3 className="mb-3 font-semibold text-neutral-900 dark:text-neutral-100">Payment Method</h3>
+                    <h3 className="mb-3 font-semibold text-neutral-900">Payment Method</h3>
                     <div className="space-y-2">
                       {gateways.map((gateway) => (
                         <label
                           key={gateway._id}
                           className={`flex items-center gap-3 rounded-lg border p-3 cursor-pointer transition-colors ${
                             selectedGateway === gateway._id
-                              ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                              : 'border-neutral-200 hover:border-neutral-300 dark:border-neutral-700'
+                              ? 'border-primary-500 bg-primary-50'
+                              : 'border-neutral-200 hover:border-neutral-300'
                           }`}
                         >
                           <input
@@ -371,7 +371,7 @@ function CheckoutContent() {
                             className="text-primary-600"
                           />
                           <div>
-                            <p className="font-medium text-neutral-900 dark:text-neutral-100">{gateway.name}</p>
+                            <p className="font-medium text-neutral-900">{gateway.name}</p>
                             <p className="text-xs text-neutral-500">{gateway.instructions?.substring(0, 50)}...</p>
                           </div>
                         </label>

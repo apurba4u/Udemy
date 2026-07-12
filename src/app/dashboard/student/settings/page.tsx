@@ -66,10 +66,10 @@ function SettingsContent() {
     <DashboardLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-2xl font-bold text-neutral-900">
             Account Settings
           </h1>
-          <p className="text-neutral-500 dark:text-neutral-400">
+          <p className="text-neutral-500">
             Manage your account security
           </p>
         </div>
@@ -84,32 +84,32 @@ function SettingsContent() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400">
+                <p className="text-sm font-medium text-neutral-500">
                   Email
                 </p>
-                <p className="text-neutral-900 dark:text-neutral-100">
+                <p className="text-neutral-900">
                   {user?.email}
                 </p>
               </div>
               <div>
-                <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400">
+                <p className="text-sm font-medium text-neutral-500">
                   Account Status
                 </p>
                 <p className="text-success-600">Active</p>
               </div>
               <div>
-                <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400">
+                <p className="text-sm font-medium text-neutral-500">
                   Member Since
                 </p>
-                <p className="text-neutral-900 dark:text-neutral-100">
+                <p className="text-neutral-900">
                   {user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
                 </p>
               </div>
               <div>
-                <p className="text-sm font-medium text-neutral-500 dark:text-neutral-400">
+                <p className="text-sm font-medium text-neutral-500">
                   Last Login
                 </p>
-                <p className="text-neutral-900 dark:text-neutral-100">
+                <p className="text-neutral-900">
                   {user?.lastLogin ? new Date(user.lastLogin).toLocaleString() : 'N/A'}
                 </p>
               </div>

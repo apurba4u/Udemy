@@ -27,10 +27,10 @@ function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           className="mx-auto max-w-3xl text-center"
         >
-          <h1 className="mb-6 text-4xl font-bold text-neutral-900 dark:text-neutral-100 sm:text-5xl">
+          <h1 className="mb-6 text-4xl font-bold text-neutral-900 sm:text-5xl">
             Categories
           </h1>
-          <p className="text-lg text-neutral-600 dark:text-neutral-400">
+          <p className="text-lg text-neutral-600">
             Explore our wide range of categories and find the perfect course for you.
           </p>
         </motion.div>
@@ -63,7 +63,7 @@ function CategoriesGrid() {
         {loading ? (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="rounded-xl border border-neutral-200 p-6 dark:border-neutral-700">
+              <div key={i} className="rounded-xl border border-neutral-200 p-6">
                 <Skeleton className="mb-4 h-12 w-12 rounded-xl" />
                 <Skeleton className="mb-2 h-6 w-1/2" />
                 <Skeleton className="h-4 w-3/4" />
@@ -82,13 +82,13 @@ function CategoriesGrid() {
               >
                 <Link href={`/courses?category=${category._id}`}>
                   <Card hover className="group h-full">
-                    <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary-100 transition-colors group-hover:bg-primary-200 dark:bg-primary-900/30">
+                    <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary-100 transition-colors group-hover:bg-primary-200">
                       <BookOpen className="h-7 w-7 text-primary-600" />
                     </div>
-                    <h3 className="mb-2 text-xl font-semibold text-neutral-900 dark:text-neutral-100 group-hover:text-primary-600">
+                    <h3 className="mb-2 text-xl font-semibold text-neutral-900 group-hover:text-primary-600">
                       {category.name}
                     </h3>
-                    <p className="mb-4 text-neutral-600 dark:text-neutral-400">
+                    <p className="mb-4 text-neutral-600">
                       {category.description || 'Explore courses in this category'}
                     </p>
                     <p className="text-sm text-primary-600">
@@ -100,7 +100,7 @@ function CategoriesGrid() {
             ))}
           </div>
         ) : (
-          <div className="py-12 text-center text-neutral-500 dark:text-neutral-400">
+          <div className="py-12 text-center text-neutral-500">
             No categories available yet.
           </div>
         )}

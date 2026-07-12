@@ -82,7 +82,7 @@ function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mb-6 text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-5xl lg:text-6xl"
+            className="mb-6 text-4xl font-bold tracking-tight text-neutral-900 sm:text-5xl lg:text-6xl"
           >
             Learning that gets you{' '}
             <span className="text-primary-600">results</span>
@@ -92,7 +92,7 @@ function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-8 text-lg text-neutral-600 dark:text-neutral-400"
+            className="mb-8 text-lg text-neutral-600"
           >
             Skills for your present and your future. Get started with us.
           </motion.p>
@@ -110,7 +110,7 @@ function HeroSection() {
                 placeholder="Search for courses..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-xl border border-neutral-200 bg-white py-4 pl-12 pr-4 text-neutral-900 shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-primary-500 dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-100"
+                className="w-full rounded-xl border border-neutral-200 bg-white py-4 pl-12 pr-4 text-neutral-900 shadow-lg transition-shadow focus:outline-none focus:ring-2 focus:ring-primary-500"
               />
               <Button className="absolute right-2 top-1/2 -translate-y-1/2">
                 Search
@@ -122,7 +122,7 @@ function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-wrap items-center justify-center gap-6 text-sm text-neutral-500 dark:text-neutral-400"
+            className="flex flex-wrap items-center justify-center gap-6 text-sm text-neutral-500"
           >
             <div className="flex items-center gap-2">
               <CheckCircle className="h-4 w-4 text-success-500" />
@@ -152,7 +152,7 @@ function StatsSection() {
   ];
 
   return (
-    <Section padding="lg" className="bg-white dark:bg-neutral-950">
+    <Section padding="lg" className="bg-white">
       <Container>
         <AnimatedSection>
           <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
@@ -165,13 +165,13 @@ function StatsSection() {
                 transition={{ delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary-100 dark:bg-primary-900/30">
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary-100">
                   <stat.icon className="h-7 w-7 text-primary-600" />
                 </div>
-                <div className="mb-1 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+                <div className="mb-1 text-3xl font-bold text-neutral-900">
                   {stat.value}
                 </div>
-                <div className="text-sm text-neutral-500 dark:text-neutral-400">
+                <div className="text-sm text-neutral-500">
                   {stat.label}
                 </div>
               </motion.div>
@@ -204,14 +204,14 @@ function CategoriesSection() {
   }, []);
 
   return (
-    <Section padding="lg" className="bg-neutral-50 dark:bg-neutral-900">
+    <Section padding="lg" className="bg-neutral-50">
       <Container>
         <AnimatedSection>
           <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+            <h2 className="mb-4 text-3xl font-bold text-neutral-900">
               Top Categories
             </h2>
-            <p className="text-neutral-600 dark:text-neutral-400">
+            <p className="text-neutral-600">
               Explore our most popular learning categories
             </p>
           </div>
@@ -228,13 +228,13 @@ function CategoriesSection() {
             <motion.div key={category._id} variants={fadeInUp}>
               <Link href={`/courses?category=${category.slug}`}>
                 <Card hover className="text-center">
-                  <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-primary-100 mx-auto dark:bg-primary-900/30">
+                  <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-primary-100 mx-auto">
                     <BookOpen className="h-8 w-8 text-primary-600" />
                   </div>
-                  <h3 className="mb-2 font-semibold text-neutral-900 dark:text-neutral-100">
+                  <h3 className="mb-2 font-semibold text-neutral-900">
                     {category.name}
                   </h3>
-                  <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                  <p className="text-sm text-neutral-500">
                     {category.courseCount} courses
                   </p>
                 </Card>
@@ -266,15 +266,15 @@ function FeaturedCoursesSection() {
   }, []);
 
   return (
-    <Section padding="lg" className="bg-white dark:bg-neutral-950">
+    <Section padding="lg" className="bg-white">
       <Container>
         <AnimatedSection>
           <div className="mb-12 flex items-end justify-between">
             <div>
-              <h2 className="mb-4 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+              <h2 className="mb-4 text-3xl font-bold text-neutral-900">
                 Featured Courses
               </h2>
-              <p className="text-neutral-600 dark:text-neutral-400">
+              <p className="text-neutral-600">
                 Handpicked courses to accelerate your career
               </p>
             </div>
@@ -289,7 +289,7 @@ function FeaturedCoursesSection() {
         {loading ? (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
+              <div key={i} className="rounded-xl border border-neutral-200 p-4">
                 <Skeleton className="mb-4 h-40 w-full rounded-lg" />
                 <Skeleton className="mb-2 h-4 w-3/4" />
                 <Skeleton className="mb-2 h-4 w-1/2" />
@@ -321,10 +321,10 @@ function FeaturedCoursesSection() {
                         </Badge>
                       )}
                     </div>
-                    <h3 className="mb-2 line-clamp-2 font-semibold text-neutral-900 dark:text-neutral-100 group-hover:text-primary-600">
+                    <h3 className="mb-2 line-clamp-2 font-semibold text-neutral-900 group-hover:text-primary-600">
                       {course.title}
                     </h3>
-                    <p className="mb-2 text-sm text-neutral-500 dark:text-neutral-400">
+                    <p className="mb-2 text-sm text-neutral-500">
                       {course.instructor?.fullName || 'Unknown Instructor'}
                     </p>
                     <div className="mb-2 flex items-center gap-1">
@@ -333,7 +333,7 @@ function FeaturedCoursesSection() {
                       <span className="text-sm text-neutral-400">({course.reviewCount})</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-lg font-bold text-neutral-900 dark:text-neutral-100">
+                      <span className="text-lg font-bold text-neutral-900">
                         ${course.discountPrice || course.price}
                       </span>
                       {course.discountPrice && (
@@ -348,7 +348,7 @@ function FeaturedCoursesSection() {
             ))}
           </motion.div>
         ) : (
-          <div className="py-12 text-center text-neutral-500 dark:text-neutral-400">
+          <div className="py-12 text-center text-neutral-500">
             No courses available yet.
           </div>
         )}
@@ -390,14 +390,14 @@ function WhyLearnSection() {
   ];
 
   return (
-    <Section padding="lg" className="bg-neutral-50 dark:bg-neutral-900">
+    <Section padding="lg" className="bg-neutral-50">
       <Container>
         <AnimatedSection>
           <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+            <h2 className="mb-4 text-3xl font-bold text-neutral-900">
               Why Learn With Us
             </h2>
-            <p className="text-neutral-600 dark:text-neutral-400">
+            <p className="text-neutral-600">
               Everything you need to advance your career
             </p>
           </div>
@@ -413,13 +413,13 @@ function WhyLearnSection() {
           {features.map((feature, index) => (
             <motion.div key={feature.title} variants={fadeInUp}>
               <Card hover className="h-full text-center">
-                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary-100 dark:bg-primary-900/30">
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary-100">
                   <feature.icon className="h-7 w-7 text-primary-600" />
                 </div>
-                <h3 className="mb-2 font-semibold text-neutral-900 dark:text-neutral-100">
+                <h3 className="mb-2 font-semibold text-neutral-900">
                   {feature.title}
                 </h3>
-                <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                <p className="text-sm text-neutral-500">
                   {feature.description}
                 </p>
               </Card>
@@ -454,14 +454,14 @@ function TestimonialsSection() {
   ];
 
   return (
-    <Section padding="lg" className="bg-white dark:bg-neutral-950">
+    <Section padding="lg" className="bg-white">
       <Container>
         <AnimatedSection>
           <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+            <h2 className="mb-4 text-3xl font-bold text-neutral-900">
               What Our Students Say
             </h2>
-            <p className="text-neutral-600 dark:text-neutral-400">
+            <p className="text-neutral-600">
               Join thousands of satisfied learners
             </p>
           </div>
@@ -482,20 +482,20 @@ function TestimonialsSection() {
                     <Star key={i} className="h-5 w-5 fill-warning-500 text-warning-500" />
                   ))}
                 </div>
-                <p className="mb-6 text-neutral-600 dark:text-neutral-400">
+                <p className="mb-6 text-neutral-600">
                   &ldquo;{testimonial.content}&rdquo;
                 </p>
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-100 dark:bg-primary-900/30">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-100">
                     <span className="text-sm font-medium text-primary-600">
                       {testimonial.name.split(' ').map(n => n[0]).join('')}
                     </span>
                   </div>
                   <div>
-                    <p className="font-medium text-neutral-900 dark:text-neutral-100">
+                    <p className="font-medium text-neutral-900">
                       {testimonial.name}
                     </p>
-                    <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                    <p className="text-sm text-neutral-500">
                       {testimonial.role}
                     </p>
                   </div>
@@ -554,14 +554,14 @@ function NewsletterSection() {
   };
 
   return (
-    <Section padding="lg" className="bg-neutral-50 dark:bg-neutral-900">
+    <Section padding="lg" className="bg-neutral-50">
       <Container>
         <AnimatedSection>
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="mb-4 text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+            <h2 className="mb-4 text-3xl font-bold text-neutral-900">
               Stay Updated
             </h2>
-            <p className="mb-8 text-neutral-600 dark:text-neutral-400">
+            <p className="mb-8 text-neutral-600">
               Subscribe to our newsletter for the latest courses and learning tips.
             </p>
             <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row">

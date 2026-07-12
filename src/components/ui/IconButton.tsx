@@ -18,9 +18,9 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 
     const variants = {
       primary: 'bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500',
-      secondary: 'bg-neutral-100 text-neutral-900 hover:bg-neutral-200 focus:ring-neutral-400 dark:bg-neutral-800 dark:text-neutral-100',
+      secondary: 'bg-neutral-100 text-neutral-900 hover:bg-neutral-200 focus:ring-neutral-400',
       outline: 'border border-neutral-300 bg-transparent hover:bg-neutral-50 focus:ring-neutral-400 dark:border-neutral-600',
-      ghost: 'bg-transparent hover:bg-neutral-100 focus:ring-neutral-400 dark:hover:bg-neutral-800',
+      ghost: 'bg-transparent hover:bg-neutral-100 focus:ring-neutral-400',
     };
 
     const sizes = {

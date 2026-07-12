@@ -58,10 +58,10 @@ function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           className="mx-auto max-w-3xl text-center"
         >
-          <h1 className="mb-6 text-4xl font-bold text-neutral-900 dark:text-neutral-100 sm:text-5xl">
+          <h1 className="mb-6 text-4xl font-bold text-neutral-900 sm:text-5xl">
             Frequently Asked Questions
           </h1>
-          <p className="text-lg text-neutral-600 dark:text-neutral-400">
+          <p className="text-lg text-neutral-600">
             Find answers to common questions about our platform.
           </p>
         </motion.div>
@@ -84,13 +84,13 @@ function FAQAccordion() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.05 }}
-              className="border-b border-neutral-200 dark:border-neutral-700"
+              className="border-b border-neutral-200"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 className="flex w-full items-center justify-between py-5 text-left"
               >
-                <span className="pr-4 text-lg font-medium text-neutral-900 dark:text-neutral-100">
+                <span className="pr-4 text-lg font-medium text-neutral-900">
                   {faq.question}
                 </span>
                 <ChevronDown
@@ -109,7 +109,7 @@ function FAQAccordion() {
                     transition={{ duration: 0.2 }}
                     className="overflow-hidden"
                   >
-                    <p className="pb-5 text-neutral-600 dark:text-neutral-400">
+                    <p className="pb-5 text-neutral-600">
                       {faq.answer}
                     </p>
                   </motion.div>
@@ -125,7 +125,7 @@ function FAQAccordion() {
 
 function ContactCTA() {
   return (
-    <Section padding="lg" className="bg-neutral-50 dark:bg-neutral-900">
+    <Section padding="lg" className="bg-neutral-50">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -133,10 +133,10 @@ function ContactCTA() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <h2 className="mb-4 text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h2 className="mb-4 text-2xl font-bold text-neutral-900">
             Still have questions?
           </h2>
-          <p className="mb-6 text-neutral-600 dark:text-neutral-400">
+          <p className="mb-6 text-neutral-600">
             We&apos;re here to help. Contact our support team.
           </p>
           <a href="/contact">

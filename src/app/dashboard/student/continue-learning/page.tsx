@@ -39,10 +39,10 @@ function ContinueLearningContent() {
     <DashboardLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-2xl font-bold text-neutral-900">
             Continue Learning
           </h1>
-          <p className="text-neutral-500 dark:text-neutral-400">
+          <p className="text-neutral-500">
             Pick up where you left off
           </p>
         </div>
@@ -60,10 +60,10 @@ function ContinueLearningContent() {
           <Card>
             <CardContent className="py-12 text-center">
               <Play className="mx-auto mb-4 h-12 w-12 text-neutral-300" />
-              <h3 className="mb-2 text-lg font-medium text-neutral-900 dark:text-neutral-100">
+              <h3 className="mb-2 text-lg font-medium text-neutral-900">
                 No courses in progress
               </h3>
-              <p className="mb-4 text-neutral-500 dark:text-neutral-400">
+              <p className="mb-4 text-neutral-500">
                 Start learning by enrolling in a course
               </p>
               <Link href="/courses">
@@ -98,19 +98,19 @@ function ContinueLearningContent() {
                         <Badge variant="primary" className="mb-2">
                           Most Recent
                         </Badge>
-                        <h2 className="mb-2 text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+                        <h2 className="mb-2 text-2xl font-bold text-neutral-900">
                           {mostRecent.course?.title}
                         </h2>
-                        <p className="mb-4 text-neutral-500 dark:text-neutral-400">
+                        <p className="mb-4 text-neutral-500">
                           {mostRecent.course?.instructor?.fullName}
                         </p>
 
                         <div className="mb-4">
                           <div className="mb-2 flex items-center justify-between">
-                            <span className="text-sm text-neutral-500 dark:text-neutral-400">
+                            <span className="text-sm text-neutral-500">
                               Progress
                             </span>
-                            <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+                            <span className="text-sm font-medium text-neutral-900">
                               {Math.round(mostRecent.progress || 0)}%
                             </span>
                           </div>
@@ -122,7 +122,7 @@ function ContinueLearningContent() {
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-4 text-sm text-neutral-500 dark:text-neutral-400">
+                        <div className="flex items-center gap-4 text-sm text-neutral-500">
                           <div className="flex items-center gap-1">
                             <Clock className="h-4 w-4" />
                             <span>Last accessed: Recently</span>
@@ -143,7 +143,7 @@ function ContinueLearningContent() {
 
             {enrollments.length > 1 && (
               <div>
-                <h3 className="mb-4 text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+                <h3 className="mb-4 text-lg font-semibold text-neutral-900">
                   Other Courses in Progress
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -162,10 +162,10 @@ function ContinueLearningContent() {
                             className="h-20 w-24 rounded-lg object-cover"
                           />
                           <div className="flex-1 min-w-0">
-                            <h4 className="truncate font-medium text-neutral-900 dark:text-neutral-100">
+                            <h4 className="truncate font-medium text-neutral-900">
                               {enrollment.course?.title}
                             </h4>
-                            <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                            <p className="text-sm text-neutral-500">
                               {enrollment.course?.instructor?.fullName}
                             </p>
                             <div className="mt-2 h-1.5 w-full rounded-full bg-neutral-200 dark:bg-neutral-700">

@@ -108,10 +108,10 @@ function CoursesContent() {
             className="h-12 w-16 rounded-lg object-cover"
           />
           <div>
-            <p className="font-medium text-neutral-900 dark:text-neutral-100">
+            <p className="font-medium text-neutral-900">
               {course.title}
             </p>
-            <p className="text-sm text-neutral-500 dark:text-neutral-400">
+            <p className="text-sm text-neutral-500">
               {course.instructor?.fullName || 'Unknown'}
             </p>
           </div>
@@ -130,7 +130,7 @@ function CoursesContent() {
       label: 'Price',
       sortable: true,
       render: (course) => (
-        <span className="font-medium text-neutral-900 dark:text-neutral-100">
+        <span className="font-medium text-neutral-900">
           ${course.price}
         </span>
       ),
@@ -173,23 +173,23 @@ function CoursesContent() {
               e.stopPropagation();
               setShowActions(showActions === course._id ? null : course._id);
             }}
-            className="rounded-lg p-2 text-neutral-500 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+            className="rounded-lg p-2 text-neutral-500 hover:bg-neutral-100"
           >
             <MoreVertical className="h-4 w-4" />
           </button>
 
           {showActions === course._id && (
-            <div className="absolute right-0 top-full z-10 mt-1 w-48 rounded-lg border border-neutral-200 bg-white py-1 shadow-lg dark:border-neutral-700 dark:bg-neutral-900">
+            <div className="absolute right-0 top-full z-10 mt-1 w-48 rounded-lg border border-neutral-200 bg-white py-1 shadow-lg">
               <Link
                 href={`/courses/${course.slug}`}
-                className="flex w-full items-center gap-2 px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
+                className="flex w-full items-center gap-2 px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100"
               >
                 <Eye className="h-4 w-4" />
                 View Course
               </Link>
               <button
                 onClick={() => handleTogglePublish(course._id, course.published)}
-                className="flex w-full items-center gap-2 px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800"
+                className="flex w-full items-center gap-2 px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100"
               >
                 {course.published ? (
                   <>
@@ -221,10 +221,10 @@ function CoursesContent() {
     <AdminLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-2xl font-bold text-neutral-900">
             Course Management
           </h1>
-          <p className="text-neutral-500 dark:text-neutral-400">
+          <p className="text-neutral-500">
             Manage all courses on the platform
           </p>
         </div>
@@ -238,7 +238,7 @@ function CoursesContent() {
                 placeholder="Search courses..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full rounded-lg border border-neutral-300 py-2.5 pl-10 pr-4 focus:border-primary-500 focus:outline-none dark:border-neutral-600 dark:bg-neutral-800 sm:w-64"
+                className="w-full rounded-lg border border-neutral-300 py-2.5 pl-10 pr-4 focus:border-primary-500 focus:outline-none dark:border-neutral-600 sm:w-64"
               />
             </div>
             <Button type="submit">Search</Button>

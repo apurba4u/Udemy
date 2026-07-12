@@ -6,20 +6,20 @@ import { Shield } from 'lucide-react';
 
 export default function UnauthorizedPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-white dark:bg-neutral-950">
+    <div className="flex min-h-screen items-center justify-center bg-white">
       <div className="text-center">
         <div className="mb-6 flex justify-center">
           <div className="flex h-20 w-20 items-center justify-center rounded-full bg-error-50 dark:bg-error-500/20">
             <Shield className="h-10 w-10 text-error-500" />
           </div>
         </div>
-        <h1 className="mb-4 text-6xl font-bold text-neutral-900 dark:text-neutral-100">
+        <h1 className="mb-4 text-6xl font-bold text-neutral-900">
           401
         </h1>
-        <p className="mb-2 text-xl font-semibold text-neutral-900 dark:text-neutral-100">
+        <p className="mb-2 text-xl font-semibold text-neutral-900">
           Unauthorized Access
         </p>
-        <p className="mb-8 text-neutral-600 dark:text-neutral-400">
+        <p className="mb-8 text-neutral-600">
           You need to be logged in to access this page.
         </p>
         <div className="flex items-center justify-center gap-4">

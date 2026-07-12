@@ -18,7 +18,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="mb-1.5 block text-sm font-medium text-neutral-700 dark:text-neutral-300"
+            className="mb-1.5 block text-sm font-medium text-neutral-700"
           >
             {label}
           </label>
@@ -34,7 +34,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             error
               ? 'border-error-500 focus:ring-error-500'
               : 'border-neutral-300 dark:border-neutral-600',
-            'dark:bg-neutral-900 dark:text-neutral-100',
+            'dark:bg-neutral-900',
             className
           )}
           aria-invalid={error ? 'true' : 'false'}

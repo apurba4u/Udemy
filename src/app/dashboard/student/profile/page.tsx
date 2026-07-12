@@ -91,10 +91,10 @@ function ProfileContent() {
     <DashboardLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-2xl font-bold text-neutral-900">
             Profile
           </h1>
-          <p className="text-neutral-500 dark:text-neutral-400">
+          <p className="text-neutral-500">
             Manage your profile information
           </p>
         </div>
@@ -123,10 +123,10 @@ function ProfileContent() {
                   />
                 </label>
               </div>
-              <h3 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+              <h3 className="text-lg font-semibold text-neutral-900">
                 {user?.fullName}
               </h3>
-              <p className="text-sm text-neutral-500 dark:text-neutral-400">
+              <p className="text-sm text-neutral-500">
                 {user?.email}
               </p>
               <Badge variant="primary" className="mt-2">

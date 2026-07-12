@@ -14,7 +14,7 @@ function SuccessContent() {
   const sessionId = searchParams.get('session_id');
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950 py-12">
+    <div className="min-h-screen bg-neutral-50 py-12">
       <Container>
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -26,10 +26,10 @@ function SuccessContent() {
               <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
                 <CheckCircle className="h-8 w-8 text-green-600" />
               </div>
-              <h1 className="mb-2 text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+              <h1 className="mb-2 text-2xl font-bold text-neutral-900">
                 Payment Successful!
               </h1>
-              <p className="mb-6 text-neutral-500 dark:text-neutral-400">
+              <p className="mb-6 text-neutral-500">
                 Thank you for your purchase. You now have access to the course.
               </p>
               {sessionId && (

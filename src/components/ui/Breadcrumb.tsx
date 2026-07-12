@@ -22,7 +22,7 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
         <li>
           <Link
             href="/"
-            className="flex items-center gap-1 text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200"
+            className="flex items-center gap-1 text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-200"
           >
             <Home className="h-4 w-4" />
           </Link>
@@ -33,12 +33,12 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
             {item.href ? (
               <Link
                 href={item.href}
-                className="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200"
+                className="text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-200"
               >
                 {item.label}
               </Link>
             ) : (
-              <span className="text-neutral-900 dark:text-neutral-100">
+              <span className="text-neutral-900">
                 {item.label}
               </span>
             )}

@@ -9,12 +9,12 @@ export default function Error({
   reset: () => void;
 }) {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-white dark:bg-neutral-950">
+    <div className="flex min-h-screen items-center justify-center bg-white">
       <div className="text-center">
-        <h1 className="mb-4 text-6xl font-bold text-neutral-900 dark:text-neutral-100">
+        <h1 className="mb-4 text-6xl font-bold text-neutral-900">
           500
         </h1>
-        <p className="mb-8 text-xl text-neutral-600 dark:text-neutral-400">
+        <p className="mb-8 text-xl text-neutral-600">
           Something went wrong
         </p>
         <Button onClick={reset}>Try again</Button>

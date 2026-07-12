@@ -37,18 +37,18 @@ export function Modal({ isOpen, onClose, title, children, size = 'md' }: ModalPr
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             className={cn(
-              'relative z-10 w-full rounded-xl bg-white p-6 shadow-xl dark:bg-neutral-900',
+              'relative z-10 w-full rounded-xl bg-white p-6 shadow-xl',
               sizes[size]
             )}
           >
             {title && (
               <div className="mb-4 flex items-center justify-between">
-                <h2 className="text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+                <h2 className="text-lg font-semibold text-neutral-900">
                   {title}
                 </h2>
                 <button
                   onClick={onClose}
-                  className="rounded-lg p-1 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600 dark:hover:bg-neutral-800"
+                  className="rounded-lg p-1 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600"
                 >
                   <X size={20} />
                 </button>

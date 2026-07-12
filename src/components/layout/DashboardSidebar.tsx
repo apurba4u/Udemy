@@ -56,32 +56,32 @@ export function DashboardSidebar({ isOpen, onClose }: DashboardSidebarProps) {
         }}
         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
         className={cn(
-          'fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-neutral-200 dark:bg-neutral-900 dark:border-neutral-800 lg:static lg:translate-x-0',
+          'fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-neutral-200 lg:static lg:translate-x-0',
         )}
       >
         <div className="flex h-full flex-col">
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-neutral-200 px-4 py-4 dark:border-neutral-800">
+          <div className="flex items-center justify-between border-b border-neutral-200 px-4 py-4">
             <Link href="/" className="text-xl font-bold text-primary-600">
               Udemy Clone
             </Link>
             <button
               onClick={onClose}
-              className="rounded-lg p-1 text-neutral-500 hover:bg-neutral-100 dark:hover:bg-neutral-800 lg:hidden"
+              className="rounded-lg p-1 text-neutral-500 hover:bg-neutral-100 lg:hidden"
             >
               <X className="h-5 w-5" />
             </button>
           </div>
 
           {/* User Info */}
-          <div className="border-b border-neutral-200 px-4 py-4 dark:border-neutral-800">
+          <div className="border-b border-neutral-200 px-4 py-4">
             <div className="flex items-center gap-3">
               <Avatar src={user?.avatar} alt={user?.fullName || ''} size="md" />
               <div className="flex-1 min-w-0">
-                <p className="truncate font-medium text-neutral-900 dark:text-neutral-100">
+                <p className="truncate font-medium text-neutral-900">
                   {user?.fullName}
                 </p>
-                <p className="truncate text-sm text-neutral-500 dark:text-neutral-400">
+                <p className="truncate text-sm text-neutral-500">
                   {user?.email}
                 </p>
               </div>
@@ -101,8 +101,8 @@ export function DashboardSidebar({ isOpen, onClose }: DashboardSidebarProps) {
                       className={cn(
                         'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
                         isActive
-                          ? 'bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400'
-                          : 'text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800'
+                          ? 'bg-primary-100 text-primary-700'
+                          : 'text-neutral-600 hover:bg-neutral-100'
                       )}
                     >
                       <item.icon className="h-5 w-5" />
@@ -115,10 +115,10 @@ export function DashboardSidebar({ isOpen, onClose }: DashboardSidebarProps) {
           </nav>
 
           {/* Logout */}
-          <div className="border-t border-neutral-200 p-3 dark:border-neutral-800">
+          <div className="border-t border-neutral-200 p-3">
             <button
               onClick={logout}
-              className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-neutral-600 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800"
+              className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-neutral-600 hover:bg-neutral-100"
             >
               <LogOut className="h-5 w-5" />
               Logout

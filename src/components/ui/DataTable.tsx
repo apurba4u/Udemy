@@ -59,7 +59,7 @@ export function DataTable<T>({
 
   if (loading) {
     return (
-      <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white dark:border-neutral-700 dark:bg-neutral-900">
+      <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white">
         <div className="p-4">
           <Skeleton className="h-8 w-full" />
           <div className="mt-4 space-y-3">
@@ -74,7 +74,7 @@ export function DataTable<T>({
 
   if (data.length === 0) {
     return (
-      <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white dark:border-neutral-700 dark:bg-neutral-900">
+      <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white">
         <EmptyState
           icon={emptyIcon}
           title={emptyMessage}
@@ -84,17 +84,17 @@ export function DataTable<T>({
   }
 
   return (
-    <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white dark:border-neutral-700 dark:bg-neutral-900">
+    <div className="overflow-hidden rounded-xl border border-neutral-200 bg-white">
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-neutral-200 bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-800">
+            <tr className="border-b border-neutral-200 bg-neutral-50">
               {columns.map((column) => (
                 <th
                   key={column.key}
                   className={cn(
-                    'px-4 py-3 text-left text-sm font-medium text-neutral-600 dark:text-neutral-400',
-                    column.sortable && 'cursor-pointer select-none hover:text-neutral-900 dark:hover:text-neutral-100',
+                    'px-4 py-3 text-left text-sm font-medium text-neutral-600',
+                    column.sortable && 'cursor-pointer select-none hover:text-neutral-900',
                     column.className
                   )}
                   onClick={() => column.sortable && onSort?.(column.key)}
@@ -112,8 +112,8 @@ export function DataTable<T>({
               <tr
                 key={(item as Record<string, unknown>)[keyField] as string || index}
                 className={cn(
-                  'border-b border-neutral-100 last:border-0 dark:border-neutral-800',
-                  onRowClick && 'cursor-pointer hover:bg-neutral-50 dark:hover:bg-neutral-800/50'
+                  'border-b border-neutral-100 last:border-0',
+                  onRowClick && 'cursor-pointer hover:bg-neutral-50/50'
                 )}
                 onClick={() => onRowClick?.(item)}
               >
@@ -121,7 +121,7 @@ export function DataTable<T>({
                   <td
                     key={column.key}
                     className={cn(
-                      'px-4 py-3 text-sm text-neutral-900 dark:text-neutral-100',
+                      'px-4 py-3 text-sm text-neutral-900',
                       column.className
                     )}
                   >
@@ -137,7 +137,7 @@ export function DataTable<T>({
       </div>
 
       {currentPage && totalPages && onPageChange && (
-        <div className="border-t border-neutral-200 px-4 py-3 dark:border-neutral-700">
+        <div className="border-t border-neutral-200 px-4 py-3">
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}

@@ -29,10 +29,10 @@ function WelcomeCard() {
       <CardContent>
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+            <h1 className="text-2xl font-bold text-neutral-900">
               Welcome back, {user?.fullName?.split(' ')[0]}! 👋
             </h1>
-            <p className="mt-1 text-neutral-500 dark:text-neutral-400">
+            <p className="mt-1 text-neutral-500">
               Continue your learning journey
             </p>
           </div>
@@ -106,14 +106,14 @@ function StatsCards() {
         >
           <Card>
             <CardContent className="flex items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-100 dark:bg-primary-900/30">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-100">
                 <stat.icon className="h-6 w-6 text-primary-600" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+                <p className="text-2xl font-bold text-neutral-900">
                   {stat.value}
                 </p>
-                <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                <p className="text-sm text-neutral-500">
                   {stat.label}
                 </p>
               </div>
@@ -166,7 +166,7 @@ function ContinueLearning() {
           <CardTitle>Continue Learning</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="py-8 text-center text-neutral-500 dark:text-neutral-400">
+          <div className="py-8 text-center text-neutral-500">
             <BookOpen className="mx-auto mb-4 h-12 w-12 opacity-50" />
             <p>No courses yet. Start learning today!</p>
             <Link href="/courses" className="mt-4 inline-block">
@@ -192,7 +192,7 @@ function ContinueLearning() {
         {enrollments.map((enrollment) => (
           <div
             key={enrollment._id}
-            className="flex items-center gap-4 rounded-lg border border-neutral-200 p-3 dark:border-neutral-700"
+            className="flex items-center gap-4 rounded-lg border border-neutral-200 p-3"
           >
             <img
               src={enrollment.course?.thumbnail || ''}
@@ -200,10 +200,10 @@ function ContinueLearning() {
               className="h-16 w-24 rounded-lg object-cover"
             />
             <div className="flex-1 min-w-0">
-              <h4 className="truncate font-medium text-neutral-900 dark:text-neutral-100">
+              <h4 className="truncate font-medium text-neutral-900">
                 {enrollment.course?.title}
               </h4>
-              <p className="text-sm text-neutral-500 dark:text-neutral-400">
+              <p className="text-sm text-neutral-500">
                 {enrollment.course?.instructor?.fullName}
               </p>
               <div className="mt-2 h-2 w-full rounded-full bg-neutral-200 dark:bg-neutral-700">
@@ -239,10 +239,10 @@ function RecentActivity() {
               <Award className="h-4 w-4 text-success-500" />
             </div>
             <div>
-              <p className="text-sm font-medium text-neutral-900 dark:text-neutral-100">
+              <p className="text-sm font-medium text-neutral-900">
                 Account created
               </p>
-              <p className="text-xs text-neutral-500 dark:text-neutral-400">
+              <p className="text-xs text-neutral-500">
                 Welcome to Udemy Clone!
               </p>
             </div>

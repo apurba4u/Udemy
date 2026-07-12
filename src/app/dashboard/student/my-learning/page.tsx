@@ -47,10 +47,10 @@ function MyLearningContent() {
     <DashboardLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+          <h1 className="text-2xl font-bold text-neutral-900">
             My Learning
           </h1>
-          <p className="text-neutral-500 dark:text-neutral-400">
+          <p className="text-neutral-500">
             Track your enrolled courses and progress
           </p>
         </div>
@@ -63,7 +63,7 @@ function MyLearningContent() {
               placeholder="Search courses..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-lg border border-neutral-300 py-2.5 pl-10 pr-4 focus:border-primary-500 focus:outline-none dark:border-neutral-600 dark:bg-neutral-800"
+              className="w-full rounded-lg border border-neutral-300 py-2.5 pl-10 pr-4 focus:border-primary-500 focus:outline-none dark:border-neutral-600"
             />
           </div>
         </div>
@@ -71,7 +71,7 @@ function MyLearningContent() {
         {loading ? (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="rounded-xl border border-neutral-200 p-4 dark:border-neutral-700">
+              <div key={i} className="rounded-xl border border-neutral-200 p-4">
                 <Skeleton className="mb-4 h-32 w-full rounded-lg" />
                 <Skeleton className="mb-2 h-4 w-3/4" />
                 <Skeleton className="h-4 w-1/2" />
@@ -82,10 +82,10 @@ function MyLearningContent() {
           <Card>
             <CardContent className="py-12 text-center">
               <BookOpen className="mx-auto mb-4 h-12 w-12 text-neutral-300" />
-              <h3 className="mb-2 text-lg font-medium text-neutral-900 dark:text-neutral-100">
+              <h3 className="mb-2 text-lg font-medium text-neutral-900">
                 No courses found
               </h3>
-              <p className="mb-4 text-neutral-500 dark:text-neutral-400">
+              <p className="mb-4 text-neutral-500">
                 {search ? 'No courses match your search' : 'You haven\'t enrolled in any courses yet'}
               </p>
               <Link href="/courses">
@@ -117,18 +117,18 @@ function MyLearningContent() {
                       )}
                     </div>
 
-                    <h3 className="mb-2 line-clamp-2 font-semibold text-neutral-900 dark:text-neutral-100">
+                    <h3 className="mb-2 line-clamp-2 font-semibold text-neutral-900">
                       {enrollment.course?.title}
                     </h3>
 
-                    <p className="mb-2 text-sm text-neutral-500 dark:text-neutral-400">
+                    <p className="mb-2 text-sm text-neutral-500">
                       {enrollment.course?.instructor?.fullName}
                     </p>
 
                     <div className="mb-4">
                       <div className="mb-1 flex items-center justify-between text-sm">
-                        <span className="text-neutral-500 dark:text-neutral-400">Progress</span>
-                        <span className="font-medium text-neutral-900 dark:text-neutral-100">
+                        <span className="text-neutral-500">Progress</span>
+                        <span className="font-medium text-neutral-900">
                           {Math.round(enrollment.progress || 0)}%
                         </span>
                       </div>

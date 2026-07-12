@@ -27,10 +27,10 @@ function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           className="mx-auto max-w-3xl text-center"
         >
-          <h1 className="mb-6 text-4xl font-bold text-neutral-900 dark:text-neutral-100 sm:text-5xl">
+          <h1 className="mb-6 text-4xl font-bold text-neutral-900 sm:text-5xl">
             Contact Us
           </h1>
-          <p className="text-lg text-neutral-600 dark:text-neutral-400">
+          <p className="text-lg text-neutral-600">
             Have questions? We&apos;d love to hear from you.
           </p>
         </motion.div>
@@ -68,10 +68,10 @@ function ContactSection() {
       <Container>
         <div className="grid gap-12 lg:grid-cols-2">
           <motion.div {...fadeInUp}>
-            <h2 className="mb-6 text-2xl font-bold text-neutral-900 dark:text-neutral-100">
+            <h2 className="mb-6 text-2xl font-bold text-neutral-900">
               Get in Touch
             </h2>
-            <p className="mb-8 text-neutral-600 dark:text-neutral-400">
+            <p className="mb-8 text-neutral-600">
               Fill out the form below and we&apos;ll get back to you as soon as possible.
             </p>
 
@@ -126,38 +126,38 @@ function ContactSection() {
 
           <motion.div {...fadeInUp} transition={{ delay: 0.1 }}>
             <Card className="h-full">
-              <h3 className="mb-6 text-xl font-semibold text-neutral-900 dark:text-neutral-100">
+              <h3 className="mb-6 text-xl font-semibold text-neutral-900">
                 Contact Information
               </h3>
 
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-100 dark:bg-primary-900/30">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-100">
                     <Mail className="h-6 w-6 text-primary-600" />
                   </div>
                   <div>
-                    <p className="mb-1 font-medium text-neutral-900 dark:text-neutral-100">Email</p>
-                    <p className="text-neutral-600 dark:text-neutral-400">support@udemy-clone.com</p>
+                    <p className="mb-1 font-medium text-neutral-900">Email</p>
+                    <p className="text-neutral-600">support@udemy-clone.com</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-100 dark:bg-primary-900/30">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-100">
                     <Phone className="h-6 w-6 text-primary-600" />
                   </div>
                   <div>
-                    <p className="mb-1 font-medium text-neutral-900 dark:text-neutral-100">Phone</p>
-                    <p className="text-neutral-600 dark:text-neutral-400">+1 (555) 123-4567</p>
+                    <p className="mb-1 font-medium text-neutral-900">Phone</p>
+                    <p className="text-neutral-600">+1 (555) 123-4567</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-100 dark:bg-primary-900/30">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-100">
                     <MapPin className="h-6 w-6 text-primary-600" />
                   </div>
                   <div>
-                    <p className="mb-1 font-medium text-neutral-900 dark:text-neutral-100">Address</p>
-                    <p className="text-neutral-600 dark:text-neutral-400">
+                    <p className="mb-1 font-medium text-neutral-900">Address</p>
+                    <p className="text-neutral-600">
                       123 Learning Street<br />
                       Education City, EC 12345
                     </p>
@@ -165,11 +165,11 @@ function ContactSection() {
                 </div>
               </div>
 
-              <div className="mt-8 rounded-xl bg-neutral-50 p-6 dark:bg-neutral-800">
-                <p className="mb-4 text-sm font-medium text-neutral-900 dark:text-neutral-100">
+              <div className="mt-8 rounded-xl bg-neutral-50 p-6">
+                <p className="mb-4 text-sm font-medium text-neutral-900">
                   Office Hours
                 </p>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                <p className="text-sm text-neutral-600">
                   Monday - Friday: 9:00 AM - 6:00 PM<br />
                   Saturday: 10:00 AM - 4:00 PM<br />
                   Sunday: Closed

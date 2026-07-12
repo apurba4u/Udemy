@@ -15,10 +15,10 @@ export function AccordionItem({ title, children, defaultOpen = false }: Accordio
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
-    <div className="border-b border-neutral-200 dark:border-neutral-700">
+    <div className="border-b border-neutral-200">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between py-4 text-left font-medium text-neutral-900 dark:text-neutral-100"
+        className="flex w-full items-center justify-between py-4 text-left font-medium text-neutral-900"
       >
         {title}
         <ChevronDown
@@ -37,7 +37,7 @@ export function AccordionItem({ title, children, defaultOpen = false }: Accordio
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="pb-4 text-sm text-neutral-600 dark:text-neutral-400">
+            <div className="pb-4 text-sm text-neutral-600">
               {children}
             </div>
           </motion.div>
