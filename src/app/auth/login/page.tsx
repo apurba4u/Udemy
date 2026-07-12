@@ -8,6 +8,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import api from '@/lib/api';
+import toast from 'react-hot-toast';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email'),
@@ -21,6 +23,17 @@ export default function LoginPage() {
   const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleGoogleLogin = async () => {
+    try {
+      const response = await api.get('/auth/google/url');
+      if (response.data.success) {
+        window.location.href = response.data.data.url;
+      }
+    } catch {
+      toast.error('Failed to initialize Google login');
+    }
+  };
 
   const {
     register,
@@ -175,6 +188,7 @@ export default function LoginPage() {
 
           <button
             type="button"
+            onClick={handleGoogleLogin}
             className="flex w-full items-center justify-center border border-gray-300 py-3 hover:bg-gray-50"
           >
             <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24">

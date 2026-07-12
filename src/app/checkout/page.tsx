@@ -264,19 +264,21 @@ function CheckoutContent() {
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div className="rounded-lg bg-blue-50 p-4">
-                        <p className="text-sm text-blue-800">
-                          {selectedGatewayData?.instructions || 'Follow the instructions below to complete payment.'}
+                        <p className="text-sm font-medium text-blue-800 mb-2">
+                          {selectedGatewayData?.name === 'bKash' ? 'bKash Payment' : 'Nagad Payment'}
                         </p>
-                        {selectedGatewayData?.configuration?.accountNumber ? (
-                          <p className="mt-2 font-mono text-lg font-bold text-blue-900">
-                            Account: {String(selectedGatewayData.configuration.accountNumber)}
+                        <p className="text-sm text-blue-800">
+                          {selectedGatewayData?.instructions || 'Send money to the number below and upload the screenshot as payment proof.'}
+                        </p>
+                        <div className="mt-3 rounded-lg bg-white p-3 border border-blue-200">
+                          <p className="text-xs text-blue-600 mb-1">Send Money To:</p>
+                          <p className="font-mono text-xl font-bold text-blue-900">
+                            {selectedGatewayData?.name === 'bKash' ? '01711-111111' : '01822-222222'}
                           </p>
-                        ) : null}
-                        {selectedGatewayData?.configuration?.accountHolder ? (
-                          <p className="text-sm text-blue-800">
-                            Holder: {String(selectedGatewayData.configuration.accountHolder)}
+                          <p className="text-xs text-blue-600 mt-1">
+                            Account Holder: {selectedGatewayData?.name === 'bKash' ? 'LearnHub Learning' : 'LearnHub Learning'}
                           </p>
-                        ) : null}
+                        </div>
                       </div>
 
                       <Input
