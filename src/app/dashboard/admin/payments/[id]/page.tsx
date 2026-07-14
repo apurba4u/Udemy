@@ -113,7 +113,10 @@ function PaymentDetailsContent() {
 
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold text-neutral-900">Payment Details</h1>
-          <Badge variant={payment.status === 'Approved' ? 'success' : payment.status === 'Rejected' ? 'error' : 'warning'}>
+          <Badge variant={
+            payment.status === 'approved' ? 'success' :
+            payment.status === 'rejected' ? 'error' : 'warning'
+          }>
             {payment.status}
           </Badge>
         </div>
@@ -192,7 +195,7 @@ function PaymentDetailsContent() {
           </Card>
         )}
 
-        {payment.status === 'Pending' && (
+        {payment.status === 'pending' && (
           <Card>
             <CardContent>
               <div className="flex gap-4">
