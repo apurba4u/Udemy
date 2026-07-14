@@ -8,10 +8,10 @@ import {
   Users,
   BookOpen,
   BarChart3,
+  DollarSign,
   Settings,
   LogOut,
   X,
-  ChevronDown,
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Avatar } from '@/components/ui/Avatar';
@@ -24,22 +24,9 @@ interface AdminSidebarProps {
 
 const navItems = [
   { href: '/dashboard/admin', label: 'Dashboard', icon: LayoutDashboard },
-  {
-    href: '/dashboard/admin/users',
-    label: 'Users',
-    icon: Users,
-    children: [
-      { href: '/dashboard/admin/users', label: 'All Users' },
-    ],
-  },
-  {
-    href: '/dashboard/admin/courses',
-    label: 'Courses',
-    icon: BookOpen,
-    children: [
-      { href: '/dashboard/admin/courses', label: 'All Courses' },
-    ],
-  },
+  { href: '/dashboard/admin/users', label: 'Users', icon: Users },
+  { href: '/dashboard/admin/courses', label: 'Courses', icon: BookOpen },
+  { href: '/dashboard/admin/payments', label: 'Payments', icon: DollarSign },
   { href: '/dashboard/admin/analytics', label: 'Analytics', icon: BarChart3 },
 ];
 

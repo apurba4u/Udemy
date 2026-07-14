@@ -1,8 +1,9 @@
 'use client';
 
-import { Menu, Bell, Search } from 'lucide-react';
+import { Menu, Search } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Avatar } from '@/components/ui/Avatar';
+import NotificationBell from '@/components/notifications/NotificationBell';
 
 interface DashboardTopbarProps {
   onMenuClick: () => void;
@@ -35,10 +36,7 @@ export function DashboardTopbar({ onMenuClick }: DashboardTopbarProps) {
         </div>
 
         <div className="flex items-center gap-2">
-          <button className="relative rounded-lg p-2 text-neutral-600 hover:bg-neutral-100">
-            <Bell className="h-5 w-5" />
-            <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-red-500" />
-          </button>
+          <NotificationBell />
 
           <div className="hidden sm:block">
             <Avatar src={user?.avatar} alt={user?.fullName || ''} size="sm" />
