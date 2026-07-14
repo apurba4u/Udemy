@@ -303,6 +303,43 @@ function CheckoutContent() {
                         placeholder="Enter transaction ID"
                       />
 
+                      <div>
+                        <label className="mb-1 block text-sm font-medium text-neutral-700">
+                          Payment Screenshot (Required)
+                        </label>
+                        <div className="flex items-center gap-4">
+                          <label className="flex h-20 w-full cursor-pointer items-center justify-center rounded-lg border-2 border-dashed border-neutral-300 hover:border-primary-500">
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                  if (file.size > 5 * 1024 * 1024) {
+                                    toast.error('Image must be less than 5MB');
+                                    return;
+                                  }
+                                  const reader = new FileReader();
+                                  reader.onloadend = () => {
+                                    setScreenshot(reader.result as string);
+                                  };
+                                  reader.readAsDataURL(file);
+                                }
+                              }}
+                            />
+                            {screenshot ? (
+                              <img src={screenshot} alt="Preview" className="h-20 rounded-lg object-cover" />
+                            ) : (
+                              <span className="text-sm text-neutral-500">Click to upload screenshot</span>
+                            )}
+                          </label>
+                        </div>
+                        <p className="mt-1 text-xs text-neutral-500">
+                          JPG, PNG, or WebP. Max 5MB.
+                        </p>
+                      </div>
+
                       <Button
                         onClick={handleManualPayment}
                         loading={submitting}

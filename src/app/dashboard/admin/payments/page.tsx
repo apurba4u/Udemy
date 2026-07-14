@@ -1,8 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Check, X, Eye, ExternalLink } from 'lucide-react';
+import { Check, X, Eye, ExternalLink, Download } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { AdminLayout } from '@/components/layout/AdminLayout';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
@@ -21,7 +20,7 @@ interface Payment {
     course: { _id: string; title: string };
     finalPrice: number;
   };
-  gateway: { _id: string; name: string };
+  gateway: { _id: string; name: string; configuration?: { accountNumber?: string } };
   amount: number;
   transactionId: string;
   senderNumber: string;
@@ -33,10 +32,11 @@ interface Payment {
 function PaymentsContent() {
   const [payments, setPayments] = useState<Payment[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'pending' | 'approved' | 'rejected'>('pending');
+  const [activeTab, setActiveTab] = useState<'Pending' | 'Approved' | 'Rejected'>('Pending');
   const [rejectModal, setRejectModal] = useState<Payment | null>(null);
   const [rejectReason, setRejectReason] = useState('');
   const [screenshotModal, setScreenshotModal] = useState<string | null>(null);
+  const [actionLoading, setActionLoading] = useState<string | null>(null);
 
   useEffect(() => {
     fetchPayments();
@@ -55,17 +55,24 @@ function PaymentsContent() {
   };
 
   const handleApprove = async (paymentId: string) => {
+    setActionLoading(paymentId);
     try {
       await api.put(`/orders/${paymentId}/approve`);
-      toast.success('Payment approved successfully');
+      toast.success('Payment approved! Enrollment created.');
       fetchPayments();
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Failed to approve payment');
+    } finally {
+      setActionLoading(null);
     }
   };
 
   const handleReject = async () => {
-    if (!rejectModal) return;
+    if (!rejectModal || !rejectReason.trim()) {
+      toast.error('Please provide a rejection reason');
+      return;
+    }
+    setActionLoading(rejectModal._id);
     try {
       await api.put(`/orders/${rejectModal._id}/reject`, { reason: rejectReason });
       toast.success('Payment rejected');
@@ -74,13 +81,15 @@ function PaymentsContent() {
       fetchPayments();
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Failed to reject payment');
+    } finally {
+      setActionLoading(null);
     }
   };
 
   const tabs = [
-    { key: 'pending' as const, label: 'Pending', count: payments.filter(p => p.status === 'Pending').length },
-    { key: 'approved' as const, label: 'Approved', count: payments.filter(p => p.status === 'Approved').length },
-    { key: 'rejected' as const, label: 'Rejected', count: payments.filter(p => p.status === 'Rejected').length },
+    { key: 'Pending' as const, label: 'Pending' },
+    { key: 'Approved' as const, label: 'Approved' },
+    { key: 'Rejected' as const, label: 'Rejected' },
   ];
 
   return (
@@ -109,80 +118,107 @@ function PaymentsContent() {
           <div className="py-12 text-center text-neutral-500">Loading...</div>
         ) : payments.length === 0 ? (
           <div className="py-12 text-center text-neutral-500">
-            No {activeTab} payments
+            No {activeTab.toLowerCase()} payments
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-neutral-200 text-left text-sm text-neutral-500">
-                  <th className="pb-3 font-medium">Student</th>
-                  <th className="pb-3 font-medium">Course</th>
-                  <th className="pb-3 font-medium">Gateway</th>
-                  <th className="pb-3 font-medium">Amount</th>
-                  <th className="pb-3 font-medium">Sender</th>
-                  <th className="pb-3 font-medium">Transaction ID</th>
-                  <th className="pb-3 font-medium">Screenshot</th>
-                  <th className="pb-3 font-medium">Date</th>
-                  <th className="pb-3 font-medium">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {payments.map((payment) => (
-                  <tr key={payment._id} className="border-b border-neutral-100">
-                    <td className="py-3">
+          <div className="space-y-4">
+            {payments.map((payment) => (
+              <Card key={payment._id}>
+                <CardContent className="p-4">
+                  <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                    <div className="flex-1 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                       <div>
+                        <p className="text-xs text-neutral-500">Student</p>
                         <p className="font-medium text-neutral-900">{payment.order?.student?.fullName}</p>
-                        <p className="text-xs text-neutral-500">{payment.order?.student?.email}</p>
+                        <p className="text-sm text-neutral-500">{payment.order?.student?.email}</p>
                       </div>
-                    </td>
-                    <td className="py-3 text-sm text-neutral-900">{payment.order?.course?.title}</td>
-                    <td className="py-3">
-                      <Badge variant="default">{payment.gateway?.name}</Badge>
-                    </td>
-                    <td className="py-3 font-medium text-neutral-900">${payment.amount}</td>
-                    <td className="py-3 text-sm text-neutral-900">{payment.senderNumber}</td>
-                    <td className="py-3 text-sm text-neutral-500">{payment.transactionId}</td>
-                    <td className="py-3">
-                      {payment.screenshot ? (
-                        <button
-                          onClick={() => setScreenshotModal(payment.screenshot!)}
-                          className="text-primary-600 hover:text-primary-700"
+                      <div>
+                        <p className="text-xs text-neutral-500">Course</p>
+                        <p className="font-medium text-neutral-900">{payment.order?.course?.title}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-neutral-500">Gateway</p>
+                        <Badge variant="default">{payment.gateway?.name}</Badge>
+                      </div>
+                      <div>
+                        <p className="text-xs text-neutral-500">Amount</p>
+                        <p className="font-bold text-neutral-900">${payment.amount}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-neutral-500">Sender Number</p>
+                        <p className="font-mono text-neutral-900">{payment.senderNumber}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-neutral-500">Transaction ID</p>
+                        <p className="font-mono text-sm text-neutral-900">{payment.transactionId}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-neutral-500">Screenshot</p>
+                        {payment.screenshot ? (
+                          <button
+                            onClick={() => setScreenshotModal(payment.screenshot!)}
+                            className="flex items-center gap-1 text-primary-600 hover:text-primary-700"
+                          >
+                            <Eye className="h-4 w-4" />
+                            View
+                          </button>
+                        ) : (
+                          <span className="text-sm text-neutral-400">No screenshot</span>
+                        )}
+                      </div>
+                      <div>
+                        <p className="text-xs text-neutral-500">Submitted</p>
+                        <p className="text-sm text-neutral-900">
+                          {new Date(payment.createdAt).toLocaleDateString()}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-neutral-500">Status</p>
+                        <Badge
+                          variant={
+                            payment.status === 'Approved'
+                              ? 'success'
+                              : payment.status === 'Rejected'
+                              ? 'error'
+                              : 'warning'
+                          }
                         >
-                          <Eye className="h-4 w-4" />
-                        </button>
-                      ) : (
-                        <span className="text-sm text-neutral-400">No screenshot</span>
-                      )}
-                    </td>
-                    <td className="py-3 text-sm text-neutral-500">
-                      {new Date(payment.createdAt).toLocaleDateString()}
-                    </td>
-                    <td className="py-3">
-                      {activeTab === 'pending' && (
-                        <div className="flex gap-2">
-                          <Button
-                            size="sm"
-                            onClick={() => handleApprove(payment._id)}
-                            className="bg-green-600 hover:bg-green-700"
-                          >
+                          {payment.status}
+                        </Badge>
+                      </div>
+                    </div>
+
+                    {activeTab === 'Pending' && (
+                      <div className="flex gap-2 lg:flex-col">
+                        <Button
+                          size="sm"
+                          onClick={() => handleApprove(payment._id)}
+                          disabled={actionLoading === payment._id}
+                          className="bg-green-600 hover:bg-green-700"
+                        >
+                          {actionLoading === payment._id ? (
+                            <span className="animate-spin">...</span>
+                          ) : (
                             <Check className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => setRejectModal(payment)}
-                            className="text-red-600 border-red-200 hover:bg-red-50"
-                          >
-                            <X className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                          )}
+                          Approve
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => setRejectModal(payment)}
+                          disabled={actionLoading === payment._id}
+                          className="text-red-600 border-red-200 hover:bg-red-50"
+                        >
+                          <X className="h-4 w-4" />
+                          Reject
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         )}
       </div>
@@ -196,13 +232,17 @@ function PaymentsContent() {
             label="Rejection Reason"
             value={rejectReason}
             onChange={(e) => setRejectReason(e.target.value)}
-            placeholder="Enter rejection reason"
+            placeholder="e.g., Wrong transaction ID, Invalid screenshot"
           />
           <div className="flex justify-end gap-2">
             <Button variant="outline" onClick={() => setRejectModal(null)}>
               Cancel
             </Button>
-            <Button variant="destructive" onClick={handleReject}>
+            <Button
+              variant="destructive"
+              onClick={handleReject}
+              disabled={!rejectReason.trim()}
+            >
               Reject Payment
             </Button>
           </div>
@@ -211,7 +251,22 @@ function PaymentsContent() {
 
       <Modal isOpen={!!screenshotModal} onClose={() => setScreenshotModal(null)} title="Payment Screenshot">
         {screenshotModal && (
-          <img src={screenshotModal} alt="Payment screenshot" className="w-full rounded-lg" />
+          <div className="space-y-4">
+            <img
+              src={screenshotModal}
+              alt="Payment screenshot"
+              className="w-full rounded-lg border"
+            />
+            <a
+              href={screenshotModal}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-primary-600 hover:text-primary-700"
+            >
+              <Download className="h-4 w-4" />
+              Open in new tab
+            </a>
+          </div>
         )}
       </Modal>
     </AdminLayout>
