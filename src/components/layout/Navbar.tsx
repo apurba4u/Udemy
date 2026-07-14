@@ -4,19 +4,18 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Search, User, LogOut, ChevronDown, BookOpen, LayoutDashboard } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
-import { Avatar } from '@/components/ui/Avatar';
 import { Button } from '@/components/ui/Button';
 import { Container } from './Container';
+import ProfileDropdown from '@/components/ui/ProfileDropdown';
 import { cn } from '@/lib/utils';
 
 export function Navbar() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const { user, logout, loading } = useAuth();
+  const { user, loading } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,7 +27,6 @@ export function Navbar() {
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
-    setIsProfileOpen(false);
   }, [pathname]);
 
   const guestLinks = [
@@ -50,13 +48,6 @@ export function Navbar() {
 
   const adminLinks = [
     { href: '/', label: 'Home' },
-    { href: '/dashboard/admin', label: 'Dashboard' },
-    { href: '/dashboard/admin/users', label: 'Users' },
-    { href: '/dashboard/admin/courses', label: 'Courses' },
-    { href: '/dashboard/admin/analytics', label: 'Analytics' },
-  ];
-
-  const adminDropdownLinks = [
     { href: '/dashboard/admin', label: 'Dashboard' },
     { href: '/dashboard/admin/users', label: 'Users' },
     { href: '/dashboard/admin/courses', label: 'Courses' },
@@ -106,84 +97,10 @@ export function Navbar() {
           </div>
 
           <div className="flex items-center gap-2">
-
             {!loading && (
               <>
                 {user ? (
-                  <div className="relative">
-                    <button
-                      onClick={() => setIsProfileOpen(!isProfileOpen)}
-                      className="flex items-center gap-2 rounded-lg p-1.5 hover:bg-neutral-100"
-                    >
-                      <Avatar src={user.avatar} alt={user.fullName} size="sm" />
-                      <ChevronDown className="h-4 w-4 text-neutral-500" />
-                    </button>
-
-                    <AnimatePresence>
-                      {isProfileOpen && (
-                        <motion.div
-                          initial={{ opacity: 0, y: -10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -10 }}
-                          className="absolute right-0 top-full mt-2 w-56 rounded-xl border border-neutral-200 bg-white p-2 shadow-lg"
-                        >
-                          <div className="border-b border-neutral-100 px-3 py-2">
-                            <p className="font-medium text-neutral-900">
-                              {user.fullName}
-                            </p>
-                            <p className="text-sm text-neutral-500">
-                              {user.email}
-                            </p>
-                          </div>
-                          <div className="mt-1">
-                            {user.role === 'admin' ? (
-                              adminDropdownLinks.map((link) => (
-                                <Link
-                                  key={link.href}
-                                  href={link.href}
-                                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-100"
-                                >
-                                  <LayoutDashboard className="h-4 w-4" />
-                                  {link.label}
-                                </Link>
-                              ))
-                            ) : (
-                              <>
-                                <Link
-                                  href="/dashboard/student"
-                                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-100"
-                                >
-                                  <LayoutDashboard className="h-4 w-4" />
-                                  Dashboard
-                                </Link>
-                                <Link
-                                  href="/dashboard/student/my-learning"
-                                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-100"
-                                >
-                                  <BookOpen className="h-4 w-4" />
-                                  My Learning
-                                </Link>
-                                <Link
-                                  href="/dashboard/student/profile"
-                                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-100"
-                                >
-                                  <User className="h-4 w-4" />
-                                  Profile
-                                </Link>
-                              </>
-                            )}
-                            <button
-                              onClick={logout}
-                              className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-100"
-                            >
-                              <LogOut className="h-4 w-4" />
-                              Logout
-                            </button>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
+                  <ProfileDropdown />
                 ) : (
                   <div className="hidden md:flex items-center gap-2">
                     <Link href="/auth/login">
@@ -198,14 +115,14 @@ export function Navbar() {
                 )}
               </>
             )}
-
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="rounded-lg p-2 text-neutral-600 hover:bg-neutral-100 md:hidden"
-            >
-              {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
           </div>
+
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="rounded-lg p-2 text-neutral-600 hover:bg-neutral-100 md:hidden"
+          >
+            {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
       </Container>
 
@@ -229,38 +146,11 @@ export function Navbar() {
                         ? 'bg-neutral-100 text-neutral-900'
                         : 'text-neutral-600 hover:bg-neutral-50'
                     )}
+                    onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.label}
                   </Link>
                 ))}
-                {user && (
-                  <>
-                    <Link
-                      href={user.role === 'admin' ? '/dashboard/admin/profile' : '/dashboard/student/profile'}
-                      className="rounded-lg px-3 py-2.5 text-sm font-medium text-neutral-600 hover:bg-neutral-50"
-                    >
-                      Profile
-                    </Link>
-                    <button
-                      onClick={logout}
-                      className="rounded-lg px-3 py-2.5 text-left text-sm font-medium text-red-600 hover:bg-red-50"
-                    >
-                      Logout
-                    </button>
-                  </>
-                )}
-                {!user && (
-                  <div className="mt-4 flex flex-col gap-2">
-                    <Link href="/auth/login" onClick={() => setIsMobileMenuOpen(false)}>
-                      <Button variant="outline" className="w-full">
-                        Log in
-                      </Button>
-                    </Link>
-                    <Link href="/auth/register" onClick={() => setIsMobileMenuOpen(false)}>
-                      <Button className="w-full">Sign up</Button>
-                    </Link>
-                  </div>
-                )}
               </nav>
             </Container>
           </motion.div>
