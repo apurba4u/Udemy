@@ -1,17 +1,14 @@
 'use client';
 
 import { Menu, Search } from 'lucide-react';
-import { useAuth } from '@/contexts/AuthContext';
-import { Avatar } from '@/components/ui/Avatar';
 import NotificationBell from '@/components/notifications/NotificationBell';
+import ProfileDropdown from '@/components/ui/ProfileDropdown';
 
 interface DashboardTopbarProps {
   onMenuClick: () => void;
 }
 
 export function DashboardTopbar({ onMenuClick }: DashboardTopbarProps) {
-  const { user } = useAuth();
-
   return (
     <header className="sticky top-0 z-30 border-b border-neutral-200 bg-white">
       <div className="flex h-16 items-center justify-between px-4 lg:px-6">
@@ -37,10 +34,7 @@ export function DashboardTopbar({ onMenuClick }: DashboardTopbarProps) {
 
         <div className="flex items-center gap-2">
           <NotificationBell />
-
-          <div className="hidden sm:block">
-            <Avatar src={user?.avatar} alt={user?.fullName || ''} size="sm" />
-          </div>
+          <ProfileDropdown />
         </div>
       </div>
     </header>

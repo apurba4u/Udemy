@@ -45,7 +45,7 @@ function PaymentsContent() {
   const fetchPayments = async () => {
     setLoading(true);
     try {
-      const response = await api.get(`/orders?status=${activeTab}`);
+      const response = await api.get(`/orders?status=${activeTab.toLowerCase()}`);
       setPayments(response.data.data || []);
     } catch {
       setPayments([]);
@@ -176,9 +176,9 @@ function PaymentsContent() {
                         <p className="text-xs text-neutral-500">Status</p>
                         <Badge
                           variant={
-                            payment.status === 'Approved'
+                            payment.status === 'approved'
                               ? 'success'
-                              : payment.status === 'Rejected'
+                              : payment.status === 'rejected'
                               ? 'error'
                               : 'warning'
                           }
@@ -188,7 +188,7 @@ function PaymentsContent() {
                       </div>
                     </div>
 
-                    {activeTab === 'Pending' && (
+                      {activeTab === 'Pending' && payment.status === 'pending' && (
                       <div className="flex gap-2 lg:flex-col">
                         <Button
                           size="sm"
