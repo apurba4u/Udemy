@@ -48,6 +48,7 @@ function CheckoutContent() {
   const [senderNumber, setSenderNumber] = useState('');
   const [transactionId, setTransactionId] = useState('');
   const [screenshot, setScreenshot] = useState('');
+  const [orderId, setOrderId] = useState<string | null>(null);
 
   useEffect(() => {
     if (courseId) {
@@ -110,6 +111,8 @@ function CheckoutContent() {
       const gateway = orderResponse.data.data.gateway;
       const stripeUrl = orderResponse.data.data.stripeUrl;
 
+      setOrderId(order._id);
+
       if (gateway?.type === 'stripe' && stripeUrl) {
         window.location.href = stripeUrl;
       } else {
@@ -128,10 +131,15 @@ function CheckoutContent() {
       return;
     }
 
+    if (!orderId) {
+      toast.error('No order found. Please create an order first.');
+      return;
+    }
+
     setSubmitting(true);
     try {
       await api.post('/checkout/submit-payment', {
-        orderId: courseId,
+        orderId: orderId,
         senderNumber,
         transactionId,
         screenshot,

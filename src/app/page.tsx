@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { Container } from '@/components/layout/Container';
 import { Section } from '@/components/layout/Section';
+import { PublicLayout } from '@/components/layout/PublicLayout';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
@@ -586,7 +587,7 @@ function NewsletterSection() {
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen">
+    <PublicLayout>
       <HeroSection />
       <StatsSection />
       <CategoriesSection />
@@ -595,6 +596,6 @@ export default function HomePage() {
       <TestimonialsSection />
       <CTASection />
       <NewsletterSection />
-    </div>
+    </PublicLayout>
   );
 }
