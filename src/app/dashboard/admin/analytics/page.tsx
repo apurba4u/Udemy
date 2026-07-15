@@ -23,6 +23,7 @@ import {
   Cell,
 } from 'recharts';
 import { AdminLayout } from '@/components/layout/AdminLayout';
+import AdminPageHeader from '@/components/admin/AdminPageHeader';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { Skeleton } from '@/components/ui/Skeleton';
 import AuthGuard from '@/components/guards/AuthGuard';
@@ -92,14 +93,11 @@ function AnalyticsContent() {
   return (
     <AdminLayout>
       <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-bold text-neutral-900">
-            Analytics
-          </h1>
-          <p className="text-neutral-500">
-            Platform performance and insights
-          </p>
-        </div>
+        <AdminPageHeader
+          title="Analytics"
+          subtitle="Platform performance and insights"
+          backTo="/dashboard/admin"
+        />
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">

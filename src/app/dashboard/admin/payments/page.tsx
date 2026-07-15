@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Check, X, Eye, ExternalLink, Download } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { AdminLayout } from '@/components/layout/AdminLayout';
+import AdminPageHeader from '@/components/admin/AdminPageHeader';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
@@ -95,7 +96,11 @@ function PaymentsContent() {
   return (
     <AdminLayout>
       <div className="space-y-6">
-        <h1 className="text-2xl font-bold text-neutral-900">Payment Management</h1>
+        <AdminPageHeader
+          title="Payment Management"
+          subtitle="Manage all payments on the platform"
+          backTo="/dashboard/admin"
+        />
 
         <div className="flex gap-2 border-b border-neutral-200">
           {tabs.map((tab) => (

@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { AdminLayout } from '@/components/layout/AdminLayout';
+import AdminPageHeader from '@/components/admin/AdminPageHeader';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
@@ -204,14 +205,11 @@ function UsersContent() {
   return (
     <AdminLayout>
       <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-bold text-neutral-900">
-            User Management
-          </h1>
-          <p className="text-neutral-500">
-            Manage all users on the platform
-          </p>
-        </div>
+        <AdminPageHeader
+          title="User Management"
+          subtitle="Manage all users on the platform"
+          backTo="/dashboard/admin"
+        />
 
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <form onSubmit={handleSearch} className="flex gap-2">
