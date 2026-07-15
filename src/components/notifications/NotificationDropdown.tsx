@@ -65,7 +65,7 @@ export default function NotificationDropdown({
 
       <div className="border-t border-neutral-200 px-4 py-2">
         <a
-          href="/dashboard/student/notifications"
+          href="/notifications"
           className="block text-center text-sm text-primary-600 hover:text-primary-700"
           onClick={onClose}
         >
