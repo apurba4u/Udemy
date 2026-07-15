@@ -10,8 +10,11 @@ import {
   DollarSign,
   ShoppingCart,
   Star,
-  Clock,
-  ArrowRight,
+  Plus,
+  BarChart3,
+  Tag,
+  CreditCard,
+  FileText,
 } from 'lucide-react';
 import {
   LineChart,
@@ -23,6 +26,8 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { AdminLayout } from '@/components/layout/AdminLayout';
+import AdminPageHeader from '@/components/admin/AdminPageHeader';
+import AdminStatsCard from '@/components/admin/AdminStatsCard';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
@@ -62,39 +67,42 @@ function AdminDashboardContent() {
     }
   };
 
-  const statCards = [
-    { label: 'Total Users', value: stats.totalUsers, icon: Users, color: 'bg-blue-100 text-blue-600' },
-    { label: 'Total Courses', value: stats.totalCourses, icon: BookOpen, color: 'bg-green-100 text-green-600' },
-    { label: 'Enrollments', value: stats.totalEnrollments, icon: TrendingUp, color: 'bg-purple-100 text-purple-600' },
-    { label: 'Pending Payments', value: stats.pendingPayments, icon: DollarSign, color: 'bg-yellow-100 text-yellow-600' },
-  ];
-
   return (
     <AdminLayout>
-      <div className="space-y-6">
-        <h1 className="text-2xl font-bold text-neutral-900">Dashboard</h1>
+      <AdminPageHeader title="Dashboard" subtitle="Welcome back! Here's what's happening." />
 
+      <div className="space-y-6">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {statCards.map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <Card>
-                <CardContent className="flex items-center gap-4">
-                  <div className={cn('flex h-12 w-12 items-center justify-center rounded-xl', stat.color)}>
-                    <stat.icon className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-neutral-900">{stat.value}</p>
-                    <p className="text-sm text-neutral-500">{stat.label}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+          <AdminStatsCard
+            title="Total Users"
+            value={stats.totalUsers}
+            icon={Users}
+            trend="+12% from last month"
+            trendUp={true}
+            onClick={() => window.location.href = '/dashboard/admin/users'}
+          />
+          <AdminStatsCard
+            title="Total Courses"
+            value={stats.totalCourses}
+            icon={BookOpen}
+            trend="+8% from last month"
+            trendUp={true}
+            onClick={() => window.location.href = '/dashboard/admin/courses'}
+          />
+          <AdminStatsCard
+            title="Enrollments"
+            value={stats.totalEnrollments}
+            icon={TrendingUp}
+            trend="+15% from last month"
+            trendUp={true}
+            onClick={() => window.location.href = '/dashboard/admin/analytics'}
+          />
+          <AdminStatsCard
+            title="Pending Payments"
+            value={stats.pendingPayments}
+            icon={DollarSign}
+            onClick={() => window.location.href = '/dashboard/admin/payments'}
+          />
         </div>
 
         <div className="grid gap-6 lg:grid-cols-3">
@@ -119,20 +127,20 @@ function AdminDashboardContent() {
           </Card>
 
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
+            <CardHeader>
               <CardTitle>Quick Actions</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
+              <Link href="/dashboard/admin/courses">
+                <Button variant="outline" className="w-full justify-start">
+                  <Plus className="mr-2 h-4 w-4" />
+                  Add Course
+                </Button>
+              </Link>
               <Link href="/dashboard/admin/users">
                 <Button variant="outline" className="w-full justify-start">
                   <Users className="mr-2 h-4 w-4" />
                   Manage Users
-                </Button>
-              </Link>
-              <Link href="/dashboard/admin/courses">
-                <Button variant="outline" className="w-full justify-start">
-                  <BookOpen className="mr-2 h-4 w-4" />
-                  Manage Courses
                 </Button>
               </Link>
               <Link href="/dashboard/admin/payments">
@@ -143,7 +151,7 @@ function AdminDashboardContent() {
               </Link>
               <Link href="/dashboard/admin/analytics">
                 <Button variant="outline" className="w-full justify-start">
-                  <TrendingUp className="mr-2 h-4 w-4" />
+                  <BarChart3 className="mr-2 h-4 w-4" />
                   View Analytics
                 </Button>
               </Link>
@@ -153,10 +161,6 @@ function AdminDashboardContent() {
       </div>
     </AdminLayout>
   );
-}
-
-function cn(...classes: (string | undefined | false)[]) {
-  return classes.filter(Boolean).join(' ');
 }
 
 export default function AdminDashboardPage() {
