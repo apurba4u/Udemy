@@ -140,7 +140,7 @@ function MyLearningContent() {
                       </div>
                     </div>
 
-                    <Link href={`/courses/${enrollment.course?.slug}`}>
+                    <Link href={`/dashboard/student/learn/${enrollment.course?._id}`}>
                       <Button className="w-full" size="sm">
                         <Play className="mr-2 h-4 w-4" />
                         {enrollment.completed ? 'Review Course' : 'Continue Learning'}

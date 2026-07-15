@@ -129,7 +129,7 @@ function ContinueLearningContent() {
                           </div>
                         </div>
 
-                        <Link href={`/courses/${mostRecent.course?.slug}`} className="mt-4 inline-block">
+                        <Link href={`/dashboard/student/learn/${mostRecent.course?._id}`} className="mt-4 inline-block">
                           <Button>
                             Continue Learning <ArrowRight className="ml-2 h-4 w-4" />
                           </Button>
