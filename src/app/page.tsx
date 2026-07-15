@@ -28,6 +28,7 @@ import { Skeleton } from '@/components/ui/Skeleton';
 import { useAuth } from '@/contexts/AuthContext';
 import api from '@/lib/api';
 import { Course, Category } from '@/types';
+import { cn } from '@/lib/utils';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -36,7 +37,9 @@ const fadeInUp = {
 };
 
 const staggerContainer = {
+  initial: { opacity: 0 },
   animate: {
+    opacity: 1,
     transition: {
       staggerChildren: 0.1,
     },
@@ -225,12 +228,18 @@ function CategoriesSection() {
           viewport={{ once: true }}
           className="grid grid-cols-2 gap-4 md:grid-cols-4"
         >
-          {categories.map((category) => (
+          {categories.map((category, index) => (
             <motion.div key={category._id} variants={fadeInUp}>
               <Link href={`/courses?category=${category.slug}`}>
-                <Card hover className="text-center">
-                  <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-primary-100 mx-auto">
-                    <BookOpen className="h-8 w-8 text-primary-600" />
+                <Card hover className="group text-center cursor-pointer">
+                  <div className={cn(
+                    "mb-4 flex h-16 w-16 items-center justify-center rounded-xl mx-auto transition-transform group-hover:scale-110",
+                    index % 2 === 0 ? "bg-primary-100" : "bg-emerald-100"
+                  )}>
+                    <BookOpen className={cn(
+                      "h-8 w-8",
+                      index % 2 === 0 ? "text-primary-600" : "text-emerald-600"
+                    )} />
                   </div>
                   <h3 className="mb-2 font-semibold text-neutral-900">
                     {category.name}
@@ -238,6 +247,7 @@ function CategoriesSection() {
                   <p className="text-sm text-neutral-500">
                     {category.courseCount} courses
                   </p>
+                  <ChevronRight className="mx-auto mt-3 h-4 w-4 text-neutral-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Card>
               </Link>
             </motion.div>
