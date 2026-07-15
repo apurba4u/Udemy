@@ -140,6 +140,7 @@ function CheckoutContent() {
     try {
       await api.post('/checkout/submit-payment', {
         orderId: orderId,
+        gatewayId: selectedGateway,
         senderNumber,
         transactionId,
         screenshot,
