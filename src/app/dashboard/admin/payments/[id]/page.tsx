@@ -2,9 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { Check, X, ExternalLink } from 'lucide-react';
-import PageBackButton from '@/components/ui/PageBackButton';
 import toast from 'react-hot-toast';
 import { AdminLayout } from '@/components/layout/AdminLayout';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
@@ -13,23 +11,26 @@ import { Badge } from '@/components/ui/Badge';
 import { Modal } from '@/components/ui/Modal';
 import { Input } from '@/components/ui/Input';
 import AuthGuard from '@/components/guards/AuthGuard';
+import PageBackButton from '@/components/ui/PageBackButton';
 import api from '@/lib/api';
 
-interface Payment {
+interface PaymentData {
   _id: string;
-  order: {
+  student: { _id: string; fullName: string; email: string };
+  course: { _id: string; title: string; thumbnail: string; price: number };
+  payment: {
     _id: string;
-    student: { _id: string; fullName: string; email: string };
-    course: { _id: string; title: string };
-    finalPrice: number;
-    originalPrice: number;
-    discount: number;
-  };
-  gateway: { _id: string; name: string };
-  amount: number;
-  transactionId: string;
-  senderNumber: string;
-  screenshot?: string;
+    gateway: { name: string };
+    amount: number;
+    transactionId: string;
+    senderNumber: string;
+    screenshot?: string;
+    status: string;
+    createdAt: string;
+  } | null;
+  originalPrice: number;
+  discount: number;
+  finalPrice: number;
   status: string;
   createdAt: string;
 }
@@ -37,14 +38,14 @@ interface Payment {
 function PaymentDetailsContent() {
   const params = useParams();
   const router = useRouter();
-  const [payment, setPayment] = useState<Payment | null>(null);
+  const [payment, setPayment] = useState<PaymentData | null>(null);
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(false);
   const [rejectModal, setRejectModal] = useState(false);
   const [rejectReason, setRejectReason] = useState('');
 
   useEffect(() => {
-    fetchPayment();
+    if (params.id) fetchPayment();
   }, [params.id]);
 
   const fetchPayment = async () => {
@@ -59,9 +60,13 @@ function PaymentDetailsContent() {
   };
 
   const handleApprove = async () => {
+    if (!payment?.payment?._id) {
+      toast.error('No payment found for this order');
+      return;
+    }
     setActionLoading(true);
     try {
-      await api.put(`/orders/${payment?._id}/approve`);
+      await api.put(`/orders/${payment.payment._id}/approve`);
       toast.success('Payment approved! Enrollment created.');
       router.push('/dashboard/admin/payments');
     } catch (error: any) {
@@ -76,9 +81,13 @@ function PaymentDetailsContent() {
       toast.error('Please provide a rejection reason');
       return;
     }
+    if (!payment?.payment?._id) {
+      toast.error('No payment found for this order');
+      return;
+    }
     setActionLoading(true);
     try {
-      await api.put(`/orders/${payment?._id}/reject`, { reason: rejectReason });
+      await api.put(`/orders/${payment.payment._id}/reject`, { reason: rejectReason });
       toast.success('Payment rejected');
       router.push('/dashboard/admin/payments');
     } catch (error: any) {
@@ -107,9 +116,7 @@ function PaymentDetailsContent() {
   return (
     <AdminLayout>
       <div className="space-y-6">
-        <div className="flex items-center gap-4">
-          <PageBackButton fallback="/dashboard/admin/payments" label="Back to Payments" />
-        </div>
+        <PageBackButton fallback="/dashboard/admin/payments" label="Back to Payments" />
 
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold text-neutral-900">Payment Details</h1>
@@ -129,61 +136,84 @@ function PaymentDetailsContent() {
             <CardContent className="space-y-3">
               <div>
                 <p className="text-sm text-neutral-500">Name</p>
-                <p className="font-medium text-neutral-900">{payment.order?.student?.fullName}</p>
+                <p className="font-medium text-neutral-900">{payment.student?.fullName}</p>
               </div>
               <div>
                 <p className="text-sm text-neutral-500">Email</p>
-                <p className="text-neutral-900">{payment.order?.student?.email}</p>
+                <p className="text-neutral-900">{payment.student?.email}</p>
               </div>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle>Payment Information</CardTitle>
+              <CardTitle>Course Information</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <div>
-                <p className="text-sm text-neutral-500">Course</p>
-                <p className="font-medium text-neutral-900">{payment.order?.course?.title}</p>
-              </div>
-              <div>
-                <p className="text-sm text-neutral-500">Gateway</p>
-                <Badge variant="default">{payment.gateway?.name}</Badge>
-              </div>
-              <div>
-                <p className="text-sm text-neutral-500">Amount</p>
-                <p className="font-bold text-neutral-900">${payment.amount}</p>
-              </div>
-              <div>
-                <p className="text-sm text-neutral-500">Sender Number</p>
-                <p className="font-mono text-neutral-900">{payment.senderNumber}</p>
-              </div>
-              <div>
-                <p className="text-sm text-neutral-500">Transaction ID</p>
-                <p className="font-mono text-sm text-neutral-900">{payment.transactionId}</p>
-              </div>
-              <div>
-                <p className="text-sm text-neutral-500">Submitted</p>
-                <p className="text-neutral-900">{new Date(payment.createdAt).toLocaleString()}</p>
+              <div className="flex gap-4">
+                {payment.course?.thumbnail && (
+                  <img
+                    src={payment.course.thumbnail}
+                    alt={payment.course.title}
+                    className="h-20 w-32 rounded-lg object-cover"
+                  />
+                )}
+                <div>
+                  <p className="font-medium text-neutral-900">{payment.course?.title}</p>
+                  <p className="text-sm text-neutral-500">Original Price: ${payment.originalPrice}</p>
+                </div>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {payment.screenshot && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Payment Information</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div>
+                <p className="text-sm text-neutral-500">Gateway</p>
+                <p className="font-medium text-neutral-900">{payment.payment?.gateway?.name || 'N/A'}</p>
+              </div>
+              <div>
+                <p className="text-sm text-neutral-500">Amount</p>
+                <p className="font-bold text-lg text-neutral-900">${payment.payment?.amount || payment.finalPrice}</p>
+              </div>
+              <div>
+                <p className="text-sm text-neutral-500">Sender Number</p>
+                <p className="font-mono text-neutral-900">{payment.payment?.senderNumber || 'N/A'}</p>
+              </div>
+              <div>
+                <p className="text-sm text-neutral-500">Transaction ID</p>
+                <p className="font-mono text-sm text-neutral-900">{payment.payment?.transactionId || 'N/A'}</p>
+              </div>
+              <div>
+                <p className="text-sm text-neutral-500">Submitted</p>
+                <p className="text-neutral-900">{payment.payment?.createdAt ? new Date(payment.payment.createdAt).toLocaleString() : 'N/A'}</p>
+              </div>
+              <div>
+                <p className="text-sm text-neutral-500">Discount</p>
+                <p className="text-neutral-900">${payment.discount}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {payment.payment?.screenshot && (
           <Card>
             <CardHeader>
               <CardTitle>Payment Screenshot</CardTitle>
             </CardHeader>
             <CardContent>
               <img
-                src={payment.screenshot}
+                src={payment.payment.screenshot}
                 alt="Payment screenshot"
                 className="max-w-full rounded-lg border"
               />
               <a
-                href={payment.screenshot}
+                href={payment.payment.screenshot}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-2 inline-flex items-center gap-2 text-primary-600 hover:text-primary-700"
@@ -204,8 +234,7 @@ function PaymentDetailsContent() {
                   disabled={actionLoading}
                   className="bg-green-600 hover:bg-green-700"
                 >
-                  <Check className="mr-2 h-4 w-4" />
-                  Approve Payment
+                  {actionLoading ? 'Processing...' : 'Approve Payment'}
                 </Button>
                 <Button
                   variant="outline"
@@ -213,7 +242,6 @@ function PaymentDetailsContent() {
                   disabled={actionLoading}
                   className="text-red-600 border-red-200 hover:bg-red-50"
                 >
-                  <X className="mr-2 h-4 w-4" />
                   Reject Payment
                 </Button>
               </div>
