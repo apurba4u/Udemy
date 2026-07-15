@@ -189,12 +189,23 @@ function StatsSection() {
 
 function CategoriesSection() {
   const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await api.get('/categories');
-        setCategories(response.data.data.slice(0, 8));
+        const data = response.data?.data;
+        if (Array.isArray(data) && data.length > 0) {
+          setCategories(data.slice(0, 8));
+        } else {
+          setCategories([
+            { _id: '1', name: 'Development', slug: 'development', courseCount: 1250, featured: false, active: true, createdAt: '' },
+            { _id: '2', name: 'Business', slug: 'business', courseCount: 890, featured: false, active: true, createdAt: '' },
+            { _id: '3', name: 'Design', slug: 'design', courseCount: 650, featured: false, active: true, createdAt: '' },
+            { _id: '4', name: 'Marketing', slug: 'marketing', courseCount: 420, featured: false, active: true, createdAt: '' },
+          ]);
+        }
       } catch {
         setCategories([
           { _id: '1', name: 'Development', slug: 'development', courseCount: 1250, featured: false, active: true, createdAt: '' },
@@ -202,57 +213,67 @@ function CategoriesSection() {
           { _id: '3', name: 'Design', slug: 'design', courseCount: 650, featured: false, active: true, createdAt: '' },
           { _id: '4', name: 'Marketing', slug: 'marketing', courseCount: 420, featured: false, active: true, createdAt: '' },
         ]);
+      } finally {
+        setLoading(false);
       }
     };
     fetchCategories();
   }, []);
 
+  if (loading) {
+    return (
+      <Section padding="lg" className="bg-neutral-50">
+        <Container>
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-3xl font-bold text-neutral-900">Top Categories</h2>
+            <p className="text-neutral-600">Explore our most popular learning categories</p>
+          </div>
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+            {[1,2,3,4,5,6,7,8].map((i) => (
+              <div key={i} className="animate-pulse rounded-xl border border-neutral-200 bg-white p-6">
+                <div className="mx-auto mb-4 h-16 w-16 rounded-xl bg-neutral-200" />
+                <div className="mx-auto h-4 w-24 rounded bg-neutral-200" />
+                <div className="mx-auto mt-2 h-3 w-16 rounded bg-neutral-200" />
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Section>
+    );
+  }
+
   return (
     <Section padding="lg" className="bg-neutral-50">
       <Container>
-        <AnimatedSection>
-          <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold text-neutral-900">
-              Top Categories
-            </h2>
-            <p className="text-neutral-600">
-              Explore our most popular learning categories
-            </p>
-          </div>
-        </AnimatedSection>
+        <div className="mb-12 text-center">
+          <h2 className="mb-4 text-3xl font-bold text-neutral-900">Top Categories</h2>
+          <p className="text-neutral-600">Explore our most popular learning categories</p>
+        </div>
 
-        <motion.div
-          variants={staggerContainer}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          className="grid grid-cols-2 gap-4 md:grid-cols-4"
-        >
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           {categories.map((category, index) => (
-            <motion.div key={category._id} variants={fadeInUp}>
-              <Link href={`/courses?category=${category.slug}`}>
-                <Card hover className="group text-center cursor-pointer">
-                  <div className={cn(
-                    "mb-4 flex h-16 w-16 items-center justify-center rounded-xl mx-auto transition-transform group-hover:scale-110",
-                    index % 2 === 0 ? "bg-primary-100" : "bg-emerald-100"
-                  )}>
-                    <BookOpen className={cn(
-                      "h-8 w-8",
-                      index % 2 === 0 ? "text-primary-600" : "text-emerald-600"
-                    )} />
-                  </div>
-                  <h3 className="mb-2 font-semibold text-neutral-900">
-                    {category.name}
-                  </h3>
-                  <p className="text-sm text-neutral-500">
-                    {category.courseCount} courses
-                  </p>
-                  <ChevronRight className="mx-auto mt-3 h-4 w-4 text-neutral-400 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </Card>
-              </Link>
-            </motion.div>
+            <Link key={category._id} href={`/courses?category=${category.slug}`}>
+              <div className="group cursor-pointer rounded-xl border border-neutral-200 bg-white p-6 shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
+                <div className={cn(
+                  "mb-4 flex h-16 w-16 items-center justify-center rounded-xl mx-auto transition-transform group-hover:scale-110",
+                  index % 2 === 0 ? "bg-primary-100" : "bg-emerald-100"
+                )}>
+                  <BookOpen className={cn(
+                    "h-8 w-8",
+                    index % 2 === 0 ? "text-primary-600" : "text-emerald-600"
+                  )} />
+                </div>
+                <h3 className="mb-2 text-center font-semibold text-neutral-900">
+                  {category.name}
+                </h3>
+                <p className="text-center text-sm text-neutral-500">
+                  {category.courseCount} courses
+                </p>
+                <ChevronRight className="mx-auto mt-3 h-4 w-4 text-neutral-400 opacity-0 transition-opacity group-hover:opacity-100" />
+              </div>
+            </Link>
           ))}
-        </motion.div>
+        </div>
       </Container>
     </Section>
   );
