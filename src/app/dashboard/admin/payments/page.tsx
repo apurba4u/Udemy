@@ -1,11 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Check, X, Eye, ExternalLink, Download } from 'lucide-react';
+import { Check, X } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { AdminLayout } from '@/components/layout/AdminLayout';
 import AdminPageHeader from '@/components/admin/AdminPageHeader';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
+import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { Modal } from '@/components/ui/Modal';
@@ -13,40 +13,32 @@ import { Input } from '@/components/ui/Input';
 import AuthGuard from '@/components/guards/AuthGuard';
 import api from '@/lib/api';
 
-interface Payment {
+interface OrderData {
   _id: string;
-  order: {
-    _id: string;
-    student: { _id: string; fullName: string; email: string };
-    course: { _id: string; title: string };
-    finalPrice: number;
-  };
-  gateway: { _id: string; name: string; configuration?: { accountNumber?: string } };
-  amount: number;
-  transactionId: string;
-  senderNumber: string;
-  screenshot?: string;
+  student: { _id: string; fullName: string; email: string };
+  course: { _id: string; title: string; thumbnail?: string };
+  payment?: { _id: string; gateway: { name: string }; amount: number; transactionId: string; senderNumber: string; screenshot?: string; status: string; createdAt: string } | null;
+  originalPrice: number;
+  finalPrice: number;
   status: string;
   createdAt: string;
 }
 
 function PaymentsContent() {
-  const [payments, setPayments] = useState<Payment[]>([]);
+  const [payments, setPayments] = useState<OrderData[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'Pending' | 'Approved' | 'Rejected'>('Pending');
-  const [rejectModal, setRejectModal] = useState<Payment | null>(null);
+  const [activeTab, setActiveTab] = useState<'pending' | 'approved' | 'rejected'>('pending');
+  const [rejectModal, setRejectModal] = useState<OrderData | null>(null);
   const [rejectReason, setRejectReason] = useState('');
   const [screenshotModal, setScreenshotModal] = useState<string | null>(null);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchPayments();
-  }, [activeTab]);
+  useEffect(() => { fetchPayments(); }, [activeTab]);
 
   const fetchPayments = async () => {
     setLoading(true);
     try {
-      const response = await api.get(`/orders?status=${activeTab.toLowerCase()}`);
+      const response = await api.get(`/orders?status=${activeTab}`);
       setPayments(response.data.data || []);
     } catch {
       setPayments([]);
@@ -59,10 +51,10 @@ function PaymentsContent() {
     setActionLoading(paymentId);
     try {
       await api.put(`/orders/${paymentId}/approve`);
-      toast.success('Payment approved! Enrollment created.');
+      toast.success('Payment approved!');
       fetchPayments();
     } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Failed to approve payment');
+      toast.error(error.response?.data?.message || 'Failed to approve');
     } finally {
       setActionLoading(null);
     }
@@ -75,44 +67,35 @@ function PaymentsContent() {
     }
     setActionLoading(rejectModal._id);
     try {
-      await api.put(`/orders/${rejectModal._id}/reject`, { reason: rejectReason });
+      await api.put(`/orders/${rejectModal.payment!._id}/reject`, { reason: rejectReason });
       toast.success('Payment rejected');
       setRejectModal(null);
       setRejectReason('');
       fetchPayments();
     } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Failed to reject payment');
+      toast.error(error.response?.data?.message || 'Failed to reject');
     } finally {
       setActionLoading(null);
     }
   };
 
   const tabs = [
-    { key: 'Pending' as const, label: 'Pending' },
-    { key: 'Approved' as const, label: 'Approved' },
-    { key: 'Rejected' as const, label: 'Rejected' },
+    { key: 'pending' as const, label: 'Pending' },
+    { key: 'approved' as const, label: 'Approved' },
+    { key: 'rejected' as const, label: 'Rejected' },
   ];
 
   return (
     <AdminLayout>
       <div className="space-y-6">
-        <AdminPageHeader
-          title="Payment Management"
-          subtitle="Manage all payments on the platform"
-          backTo="/dashboard/admin"
-        />
+        <AdminPageHeader title="Payment Management" subtitle="Manage all payments" backTo="/dashboard/admin" />
 
         <div className="flex gap-2 border-b border-neutral-200">
           {tabs.map((tab) => (
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className={cn(
-                'px-4 py-2 text-sm font-medium border-b-2 transition-colors',
-                activeTab === tab.key
-                  ? 'border-primary-600 text-primary-600'
-                  : 'border-transparent text-neutral-500 hover:text-neutral-700'
-              )}
+              className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${activeTab === tab.key ? 'border-primary-600 text-primary-600' : 'border-transparent text-neutral-500 hover:text-neutral-700'}`}
             >
               {tab.label}
             </button>
@@ -122,9 +105,7 @@ function PaymentsContent() {
         {loading ? (
           <div className="py-12 text-center text-neutral-500">Loading...</div>
         ) : payments.length === 0 ? (
-          <div className="py-12 text-center text-neutral-500">
-            No {activeTab.toLowerCase()} payments
-          </div>
+          <div className="py-12 text-center text-neutral-500">No {activeTab} payments</div>
         ) : (
           <div className="space-y-4">
             {payments.map((payment) => (
@@ -134,87 +115,44 @@ function PaymentsContent() {
                     <div className="flex-1 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                       <div>
                         <p className="text-xs text-neutral-500">Student</p>
-                        <p className="font-medium text-neutral-900">{payment.order?.student?.fullName}</p>
-                        <p className="text-sm text-neutral-500">{payment.order?.student?.email}</p>
+                        <p className="font-medium text-neutral-900">{payment.student?.fullName}</p>
+                        <p className="text-sm text-neutral-500">{payment.student?.email}</p>
                       </div>
                       <div>
                         <p className="text-xs text-neutral-500">Course</p>
-                        <p className="font-medium text-neutral-900">{payment.order?.course?.title}</p>
+                        <p className="font-medium text-neutral-900">{payment.course?.title}</p>
                       </div>
                       <div>
                         <p className="text-xs text-neutral-500">Gateway</p>
-                        <Badge variant="default">{payment.gateway?.name}</Badge>
+                        <Badge variant="default">{payment.payment?.gateway?.name || 'N/A'}</Badge>
                       </div>
                       <div>
                         <p className="text-xs text-neutral-500">Amount</p>
-                        <p className="font-bold text-neutral-900">${payment.amount}</p>
+                        <p className="font-bold text-neutral-900">${payment.payment?.amount || payment.finalPrice}</p>
                       </div>
                       <div>
-                        <p className="text-xs text-neutral-500">Sender Number</p>
-                        <p className="font-mono text-neutral-900">{payment.senderNumber}</p>
+                        <p className="text-xs text-neutral-500">Sender</p>
+                        <p className="font-mono text-neutral-900">{payment.payment?.senderNumber || 'N/A'}</p>
                       </div>
                       <div>
                         <p className="text-xs text-neutral-500">Transaction ID</p>
-                        <p className="font-mono text-sm text-neutral-900">{payment.transactionId}</p>
-                      </div>
-                      <div>
-                        <p className="text-xs text-neutral-500">Screenshot</p>
-                        {payment.screenshot ? (
-                          <button
-                            onClick={() => setScreenshotModal(payment.screenshot!)}
-                            className="flex items-center gap-1 text-primary-600 hover:text-primary-700"
-                          >
-                            <Eye className="h-4 w-4" />
-                            View
-                          </button>
-                        ) : (
-                          <span className="text-sm text-neutral-400">No screenshot</span>
-                        )}
-                      </div>
-                      <div>
-                        <p className="text-xs text-neutral-500">Submitted</p>
-                        <p className="text-sm text-neutral-900">
-                          {new Date(payment.createdAt).toLocaleDateString()}
-                        </p>
+                        <p className="font-mono text-sm text-neutral-900">{payment.payment?.transactionId || 'N/A'}</p>
                       </div>
                       <div>
                         <p className="text-xs text-neutral-500">Status</p>
-                        <Badge
-                          variant={
-                            payment.status === 'approved'
-                              ? 'success'
-                              : payment.status === 'rejected'
-                              ? 'error'
-                              : 'warning'
-                          }
-                        >
+                        <Badge variant={payment.status === 'completed' ? 'success' : payment.status === 'cancelled' ? 'error' : 'warning'}>
                           {payment.status}
                         </Badge>
                       </div>
                     </div>
 
-                      {activeTab === 'Pending' && payment.status === 'pending' && (
+                    {activeTab === 'pending' && payment.status === 'pending' && payment.payment && (
                       <div className="flex gap-2 lg:flex-col">
-                        <Button
-                          size="sm"
-                          onClick={() => handleApprove(payment._id)}
-                          disabled={actionLoading === payment._id}
-                          className="bg-green-600 hover:bg-green-700"
-                        >
-                          {actionLoading === payment._id ? (
-                            <span className="animate-spin">...</span>
-                          ) : (
-                            <Check className="h-4 w-4" />
-                          )}
+                        <Button size="sm" onClick={() => handleApprove(payment.payment!._id)} disabled={actionLoading === payment._id} className="bg-green-600 hover:bg-green-700">
+                          <Check className="h-4 w-4" />
                           Approve
                         </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => setRejectModal(payment)}
-                          disabled={actionLoading === payment._id}
-                          className="text-red-600 border-red-200 hover:bg-red-50"
-                        >
+                        <Button size="sm" variant="outline" onClick={() => setRejectModal(payment)} disabled={actionLoading === payment._id} className="text-red-600 border-red-200 hover:bg-red-50">
                           <X className="h-4 w-4" />
                           Reject
                         </Button>
@@ -230,56 +168,16 @@ function PaymentsContent() {
 
       <Modal isOpen={!!rejectModal} onClose={() => setRejectModal(null)} title="Reject Payment">
         <div className="space-y-4">
-          <p className="text-sm text-neutral-600">
-            Please provide a reason for rejecting this payment.
-          </p>
-          <Input
-            label="Rejection Reason"
-            value={rejectReason}
-            onChange={(e) => setRejectReason(e.target.value)}
-            placeholder="e.g., Wrong transaction ID, Invalid screenshot"
-          />
+          <p className="text-sm text-neutral-600">Please provide a reason for rejecting this payment.</p>
+          <Input label="Rejection Reason" value={rejectReason} onChange={(e) => setRejectReason(e.target.value)} placeholder="e.g., Wrong transaction ID" />
           <div className="flex justify-end gap-2">
-            <Button variant="outline" onClick={() => setRejectModal(null)}>
-              Cancel
-            </Button>
-            <Button
-              variant="destructive"
-              onClick={handleReject}
-              disabled={!rejectReason.trim()}
-            >
-              Reject Payment
-            </Button>
+            <Button variant="outline" onClick={() => setRejectModal(null)}>Cancel</Button>
+            <Button variant="destructive" onClick={handleReject} disabled={!rejectReason.trim() || !!actionLoading}>Reject Payment</Button>
           </div>
         </div>
       </Modal>
-
-      <Modal isOpen={!!screenshotModal} onClose={() => setScreenshotModal(null)} title="Payment Screenshot">
-        {screenshotModal && (
-          <div className="space-y-4">
-            <img
-              src={screenshotModal}
-              alt="Payment screenshot"
-              className="w-full rounded-lg border"
-            />
-            <a
-              href={screenshotModal}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-primary-600 hover:text-primary-700"
-            >
-              <Download className="h-4 w-4" />
-              Open in new tab
-            </a>
-          </div>
-        )}
-      </Modal>
     </AdminLayout>
   );
-}
-
-function cn(...classes: (string | undefined | false)[]) {
-  return classes.filter(Boolean).join(' ');
 }
 
 export default function PaymentsPage() {
